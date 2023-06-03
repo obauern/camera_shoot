@@ -6,9 +6,14 @@
 #define SW1 (1<<4U)
 
 #define SOUND_V_CM_US 0.0343
-#define MINIMUM_DISTANCE 100.0
+#define MINIMUM_DISTANCE 20.0
+#define NUMBERS_OF_PICTURES 3
 
 static bool isObjectDetected = false;
+static bool flagForNextPicture = true;
+static bool pictureToBeTaken = false;
+static uint8_t numbersOfPictures = 0;
+static bool internIsPictureTaked = false;
 static bool isDataAvailable = false;
 static bool isTimeOfNewMeasurement = false;
 static float distanceEchoCm = 0;
@@ -25,7 +30,9 @@ static void delayHcSr04(uint32_t microseconds);
 static void HcSr04TriggerControl(void);
 static void HcSr04DataProcessingControl(void);
 static float calculateDistanceMeassured(void);
+static bool conditionsForPictureAreMet(void);
 static void calculateLimitsOfDistance(void);
+static void calculateIfPicturesCanBeTaken(void);
 
 /*Initialisation of timers for the module*/
 void initTimersForHCSr04(void)
@@ -94,7 +101,6 @@ void TIMER1A_Handler(void)
 
 void TIMER3A_Handler(void) /*Interruption for timer to measure the echo pulse*/
 {
-    /*TIMER3->CTL |= (1u<<0u); /*enables timer 3*/
     if((TIMER3->RIS & (1u<<2u))) /*If it is capture mode in timer3a*/
     {
         TIMER3->ICR |= (1u<<2u);/*Clears timer a capture for timer 3*/
@@ -111,8 +117,12 @@ void TIMER3A_Handler(void) /*Interruption for timer to measure the echo pulse*/
 }
 
 /**/
-void HcSr04Control(void)
+void HcSr04Control(bool isPictureTaked)
 {
+    if(isPictureTaked)
+    {
+        internIsPictureTaked = true;
+    }
     HcSr04TriggerControl();
     HcSr04DataProcessingControl();
 }
@@ -137,7 +147,35 @@ static void HcSr04DataProcessingControl(void)
         isDataAvailable = false;
         distanceEchoCm = calculateDistanceMeassured();
         calculateLimitsOfDistance();
+        calculateIfPicturesCanBeTaken();
     }
+}
+
+static void calculateIfPicturesCanBeTaken(void)
+{
+    if(conditionsForPictureAreMet())
+    {
+        pictureToBeTaken = true;
+        flagForNextPicture = false;
+        numbersOfPictures++;
+    }
+    
+    if(internIsPictureTaked)
+    {
+        flagForNextPicture = true;
+        internIsPictureTaked = false;
+    }
+    
+    if(!isObjectDetected)
+    {
+        numbersOfPictures = 0;
+        flagForNextPicture = true;
+    }
+}
+
+static bool conditionsForPictureAreMet(void)
+{
+    return (isObjectDetected && numbersOfPictures<NUMBERS_OF_PICTURES && flagForNextPicture);
 }
 
 static void calculateLimitsOfDistance(void)
@@ -145,6 +183,10 @@ static void calculateLimitsOfDistance(void)
     if(distanceEchoCm < MINIMUM_DISTANCE)
     {
         isObjectDetected = true;
+    }
+    else
+    {
+        isObjectDetected = false;
     }
 }
 
@@ -190,9 +232,9 @@ static void initGpioPb3AsTrigger(void)
 
 bool isAnObjectDetected(void)
 {
-    if(isObjectDetected)
+    if(pictureToBeTaken)
     {
-        isObjectDetected = false;
+        pictureToBeTaken = false;
         return true;
     }
     return false;
