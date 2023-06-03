@@ -1,0 +1,81 @@
+# ninja log v5
+1981	2159	7074368770000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/main.xcl	454e23f244d6e0c8
+2318	2453	7065666076670024	C:/embedded projects/camera shoot/Debug/BrowseInfo/output/sensor_control.pbi	348d0ad1831553
+2845	3050	7074368785986662	C:/embedded projects/camera shoot/Debug/BrowseInfo/main.pbi	2b196d6088a5e895
+168	1526	7065666060000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/output/sensor_control.xcl	f11f92a9d4410029
+2	1980	7074368770000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/init/init.xcl	d363745343b2c3a8
+3113	3254	7074368788017409	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+2151	2358	7074368779113280	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+2568	2674	7074368780000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/cstartup_M.xcl	20d666d171a01f24
+3256	4398	7074368798952622	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2675	2742	7074368782862387	C:/embedded projects/camera shoot/Debug/BrowseInfo/cstartup_M.pbi	7c00c5a9d246795c
+1575	1807	7065666070000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/camera_control.xcl	add92f0d2a235385
+2160	2405	7074368779581896	C:/embedded projects/camera shoot/Debug/BrowseInfo/init/init.pbi	e9677607ce69449b
+1808	2300	7065666075264154	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/camera_control.pbi	2062ae042a67757
+3051	3111	7074368786611486	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part2.pbi	f97818bbf4bde103
+2743	2849	7074368783955915	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part1.pbi	d2b4f9cbc7a7b95
+1976	2150	7074368770000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.xcl	6ca16910dd57b7a1
+2734	2844	7074368783955915	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+2406	2517	7074368780000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/output/camera_control.xcl	dd7e294b4f80b80a
+94	1976	7074368770000000	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/sensor_control.xcl	f85b650a5707e8b
+2517	2733	7074368782862387	C:/embedded projects/camera shoot/Debug/BrowseInfo/output/camera_control.pbi	f04eb871142ed114
+2360	2567	7074368781144045	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/sensor_control.pbi	b244b2a31e5f4fb8
+2	161	7074369155781948	C:/embedded projects/camera shoot/Debug/BrowseInfo/init/init.pbi	e9677607ce69449b
+6	169	7074369155781948	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+170	273	7074369156875159	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+162	371	7074369157812464	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/sensor_control.pbi	b244b2a31e5f4fb8
+372	490	7074369159062131	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part1.pbi	d2b4f9cbc7a7b95
+275	497	7074369159062131	C:/embedded projects/camera shoot/Debug/BrowseInfo/main.pbi	2b196d6088a5e895
+498	579	7074369159999423	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part2.pbi	f97818bbf4bde103
+580	692	7074369161093183	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+693	1706	7074369170622209	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	133	7074379972250327	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+134	216	7074379973031382	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+217	320	7074379974125129	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+321	1457	7074379984903572	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	132	7074380592733265	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+133	211	7074380593514026	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+213	312	7074380594451292	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+313	1311	7074380603980579	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+5	44	7074394737858564	C:/embedded projects/camera shoot/Debug/BrowseInfo/cstartup_M.pbi	7c00c5a9d246795c
+45	125	7074394738795885	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part2.pbi	f97818bbf4bde103
+1	187	7074394739420723	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+188	270	7074394740201769	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+271	373	7074394741295253	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+374	1565	7074394752542650	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	143	7074395269671586	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+145	238	7074395270608845	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+239	384	7074395272014755	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+385	1620	7074395283730770	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	130	7074395740126052	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+131	208	7074395740906838	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+209	308	7074395741844086	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+309	1310	7074395751216927	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	137	7074397519674229	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+138	216	7074397520611460	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+217	315	7074397521548742	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+317	1410	7074397532015070	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+1	199	7074399604366271	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+200	306	7074399605459694	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+2	142	7074399657634945	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+143	1889	7074399674349753	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	181	7074400686749550	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/sensor_control.pbi	b244b2a31e5f4fb8
+182	295	7074400687999175	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part1.pbi	d2b4f9cbc7a7b95
+296	437	7074400689405123	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+438	2078	7074400704557796	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+3	338	7074407277793944	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+339	435	7074407278731226	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+436	576	7074407280137147	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+3	1534	7074407356837883	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	184	7074410726617631	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+185	302	7074410727867372	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+304	430	7074410729117086	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+432	1891	7074410743176185	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	204	7074426062108213	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+206	332	7074426063357934	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+333	443	7074426064451404	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+1	1023	7074426137871663	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf
+2	199	7074431872299784	C:/embedded projects/camera shoot/Debug/BrowseInfo/input/Sensors/HC_SR04.pbi	fd0a3f4deefd980d
+201	306	7074431873393249	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot_part0.pbi	64bffaabd79268a3
+307	439	7074431874799171	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbd	25a9ca7bcaab4146
+441	1917	7074431888858365	C:/embedded projects/camera shoot/Debug/BrowseInfo/camera shot.pbw	c6562adecc0db1cf

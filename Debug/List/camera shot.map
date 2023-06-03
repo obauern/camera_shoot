@@ -1,0 +1,317 @@
+###############################################################################
+#
+# IAR ELF Linker V9.32.2.340/W64 for ARM                  02/Jun/2023  23:06:22
+# Copyright 2007-2023 IAR Systems AB.
+#
+#    Output file  =
+#        C:\embedded projects\camera shoot\Debug\Exe\camera shot.out
+#    Map file     =
+#        C:\embedded projects\camera shoot\Debug\List\camera shot.map
+#    Command line =
+#        -f "C:\embedded projects\camera shoot\Debug\Exe\camera shot.out.rsp"
+#        ("C:\embedded projects\camera shoot\Debug\Obj\output\camera_control.o"
+#        "C:\embedded projects\camera shoot\Debug\Obj\cstartup_M.o"
+#        "C:\embedded projects\camera shoot\Debug\Obj\input\Sensors\HC_SR04.o"
+#        "C:\embedded projects\camera shoot\Debug\Obj\init\init.o" "C:\embedded
+#        projects\camera shoot\Debug\Obj\main.o" "C:\embedded projects\camera
+#        shoot\Debug\Obj\input\sensor_control.o" --no_out_extension -o
+#        "C:\embedded projects\camera shoot\Debug\Exe\camera shot.out"
+#        --redirect _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb
+#        --map "C:\embedded projects\camera shoot\Debug\List\camera shot.map"
+#        --config "C:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\arm/config/linker/TexasInstruments/TM4C123GH6.icf" --semihosting
+#        --entry __iar_program_start --vfe --text_out locale --cpu=Cortex-M4
+#        --fpu=VFPv4_sp)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__CPP_Runtime   = 1
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x0 { ro section .intvec };
+"P1":  place in [from 0x0 to 0x3'ffff] { ro };
+define block CSTACK with size = 4K, alignment = 8 { };
+define block HEAP with size = 8K, alignment = 8 { };
+"P2":  place in [from 0x2000'0000 to 0x2000'7fff] {
+          rw, block CSTACK, block HEAP };
+
+  Section          Kind         Address    Size  Object
+  -------          ----         -------    ----  ------
+"A0":                                      0xd0
+  .intvec          const            0x0    0xd0  cstartup_M.o [1]
+                                 - 0xd0    0xd0
+
+"P1":                                     0xaec
+  .text            ro code         0xd0   0x318  HC_SR04.o [4]
+  .text            ro code        0x3e8    0x1c  U32ToDbl.o [7]
+  .text            ro code        0x404   0x1aa  DblMul.o [7]
+  .text            ro code        0x5ae     0x2  cstartup_M.o [1]
+  .text            ro code        0x5b0   0x246  DblDiv.o [7]
+  .text            ro code        0x7f6     0x2  cstartup_M.o [1]
+  .text            ro code        0x7f8    0x68  DblToFlt.o [7]
+  .text            ro code        0x860   0x158  init.o [2]
+  .text            ro code        0x9b8    0xd4  camera_control.o [5]
+  .text            ro code        0xa8c    0x38  zero_init3.o [8]
+  .text            ro code        0xac4    0x28  data_init.o [8]
+  .text            ro code        0xaec    0x22  fpinit_M.o [7]
+  .iar.init_table  const          0xb10    0x10  - Linker created -
+  .text            ro code        0xb20     0x2  cstartup_M.o [1]
+  .text            ro code        0xb24    0x20  cstartup_M.o [1]
+  .text            ro code        0xb44    0x1e  cmain.o [8]
+  .text            ro code        0xb62     0x4  low_level_init.o [6]
+  .text            ro code        0xb66    0x16  main.o [1]
+  .text            ro code        0xb7c     0x4  exit.o [6]
+  .text            ro code        0xb80    0x10  sensor_control.o [3]
+  .text            ro code        0xb90     0xa  cexit.o [8]
+  .text            ro code        0xb9a     0x2  cstartup_M.o [1]
+  .text            ro code        0xb9c    0x14  exit.o [9]
+  .text            ro code        0xbb0     0x2  cstartup_M.o [1]
+  .text            ro code        0xbb2     0x2  cstartup_M.o [1]
+  .text            ro code        0xbb4     0x2  cstartup_M.o [1]
+  .text            ro code        0xbb6     0x2  cstartup_M.o [1]
+  .text            ro code        0xbb8     0x2  cstartup_M.o [1]
+  .text            ro code        0xbba     0x2  cstartup_M.o [1]
+  .rodata          const          0xbbc     0x0  zero_init3.o [8]
+                                - 0xbbc   0xaec
+
+"P2", part 1 of 2:                         0x1c
+  .bss             zero     0x2000'0000     0x4  HC_SR04.o [4]
+  .bss             zero     0x2000'0004     0x4  HC_SR04.o [4]
+  .bss             zero     0x2000'0008     0x4  HC_SR04.o [4]
+  .bss             zero     0x2000'000c     0x4  HC_SR04.o [4]
+  .bss             zero     0x2000'0010     0x4  HC_SR04.o [4]
+  .bss             zero     0x2000'0014     0x2  camera_control.o [5]
+  .bss             zero     0x2000'0016     0x1  camera_control.o [5]
+  .bss             zero     0x2000'0017     0x1  camera_control.o [5]
+  .bss             zero     0x2000'0018     0x1  HC_SR04.o [4]
+  .bss             zero     0x2000'0019     0x1  HC_SR04.o [4]
+  .bss             zero     0x2000'001a     0x1  HC_SR04.o [4]
+                          - 0x2000'001b    0x1b
+
+"P2", part 2 of 2:                       0x1000
+  CSTACK                    0x2000'0020  0x1000  <Block>
+    CSTACK         uninit   0x2000'0020  0x1000  <Block tail>
+                          - 0x2000'1020  0x1000
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+        0xbbc     0x3'ffff  0x3'f444
+  0x2000'001c  0x2000'001f       0x4
+  0x2000'1020  0x2000'7fff    0x6fe0
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x1b:
+          0x2000'0000  0x1b
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module            ro code  ro data  rw data
+    ------            -------  -------  -------
+command line/config:
+    -------------------------------------------
+    Total:
+
+C:\embedded projects\camera shoot\Debug\Obj: [1]
+    cstartup_M.o           52      208
+    main.o                 22
+    -------------------------------------------
+    Total:                 74      208
+
+C:\embedded projects\camera shoot\Debug\Obj\init: [2]
+    init.o                344
+    -------------------------------------------
+    Total:                344
+
+C:\embedded projects\camera shoot\Debug\Obj\input: [3]
+    sensor_control.o       16
+    -------------------------------------------
+    Total:                 16
+
+C:\embedded projects\camera shoot\Debug\Obj\input\Sensors: [4]
+    HC_SR04.o             792                23
+    -------------------------------------------
+    Total:                792                23
+
+C:\embedded projects\camera shoot\Debug\Obj\output: [5]
+    camera_control.o      212                 4
+    -------------------------------------------
+    Total:                212                 4
+
+dl7M_tln.a: [6]
+    exit.o                  4
+    low_level_init.o        4
+    -------------------------------------------
+    Total:                  8
+
+m7M_tls.a: [7]
+    DblDiv.o              582
+    DblMul.o              426
+    DblToFlt.o            104
+    U32ToDbl.o             28
+    fpinit_M.o             34
+    -------------------------------------------
+    Total:              1'174
+
+rt7M_tl.a: [8]
+    cexit.o                10
+    cmain.o                30
+    data_init.o            40
+    zero_init3.o           56
+    -------------------------------------------
+    Total:                136
+
+shb_l.a: [9]
+    exit.o                 20
+    -------------------------------------------
+    Total:                 20
+
+    Gaps                    2        2
+    Linker created                  16    4'096
+-----------------------------------------------
+    Grand Total:        2'778      226    4'123
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address  Size  Type      Object
+-----                       -------  ----  ----      ------
+.iar.init_table$$Base         0xb10         --   Gb  - Linker created -
+.iar.init_table$$Limit        0xb20         --   Gb  - Linker created -
+?main                         0xb45        Code  Gb  cmain.o [8]
+BusFault_Handler              0xb9b   0x2  Code  Wk  cstartup_M.o [1]
+CSTACK$$Base            0x2000'0020         --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'1020         --   Gb  - Linker created -
+DebugMon_Handler              0xbb5   0x2  Code  Wk  cstartup_M.o [1]
+GPIOF_Handler                 0xbbb   0x2  Code  Wk  cstartup_M.o [1]
+HardFault_Handler             0x7f7   0x2  Code  Wk  cstartup_M.o [1]
+HcSr04Control                 0x217   0xc  Code  Gb  HC_SR04.o [4]
+HcSr04DataProcessingControl
+                              0x24b  0x1e  Code  Lc  HC_SR04.o [4]
+HcSr04TriggerControl          0x223  0x28  Code  Lc  HC_SR04.o [4]
+MemManage_Handler             0xb21   0x2  Code  Wk  cstartup_M.o [1]
+NMI_Handler                   0x5af   0x2  Code  Wk  cstartup_M.o [1]
+NVIC_EnableIRQ                 0xd1  0x14  Code  Lc  HC_SR04.o [4]
+NVIC_EnableIRQ                0x861  0x14  Code  Lc  init.o [2]
+PendSV_Handler                0xbb7   0x2  Code  Wk  cstartup_M.o [1]
+Region$$Table$$Base           0xb10         --   Gb  - Linker created -
+Region$$Table$$Limit          0xb20         --   Gb  - Linker created -
+SVC_Handler                   0xbb3   0x2  Code  Wk  cstartup_M.o [1]
+SysTick_Handler               0xbb9   0x2  Code  Wk  cstartup_M.o [1]
+TIMER0_Handler                0x9b9  0x12  Code  Gb  camera_control.o [5]
+TIMER1A_Handler               0x1d1  0x12  Code  Gb  HC_SR04.o [4]
+TIMER3A_Handler               0x1e3  0x34  Code  Gb  HC_SR04.o [4]
+UsageFault_Handler            0xbb1   0x2  Code  Wk  cstartup_M.o [1]
+__aeabi_d2f                   0x7f9        Code  Gb  DblToFlt.o [7]
+__aeabi_ddiv                  0x5b1        Code  Gb  DblDiv.o [7]
+__aeabi_dmul                  0x405        Code  Gb  DblMul.o [7]
+__aeabi_ui2d                  0x3e9        Code  Gb  U32ToDbl.o [7]
+__cmain                       0xb45        Code  Gb  cmain.o [8]
+__exit                        0xb9d  0x14  Code  Gb  exit.o [9]
+__iar_data_init3              0xac5  0x28  Code  Gb  data_init.o [8]
+__iar_init_vfp                0xaed        Code  Gb  fpinit_M.o [7]
+__iar_program_start           0xb25  0x20  Code  Gb  cstartup_M.o [1]
+__iar_zero_init3              0xa8d  0x38  Code  Gb  zero_init3.o [8]
+__low_level_init              0xb63   0x4  Code  Gb  low_level_init.o [6]
+__vector_table                  0x0  0xd0  Data  Gb  cstartup_M.o [1]
+_call_main                    0xb51        Code  Gb  cmain.o [8]
+_exit                         0xb91        Code  Gb  cexit.o [8]
+activateGpioBHs               0x2cf  0x16  Code  Lc  HC_SR04.o [4]
+activateLed                   0xa29   0x8  Code  Lc  camera_control.o [5]
+activateTimerAndSetFlag
+                              0xa31  0x12  Code  Lc  camera_control.o [5]
+calculateDistanceMeassured
+                              0x285  0x3a  Code  Lc  HC_SR04.o [4]
+calculateDistanceMeassured::echoTimeMicroSeconds
+                        0x2000'0010   0x4  Data  Lc  HC_SR04.o [4]
+calculateDistanceMeassured::totallyTime
+                        0x2000'000c   0x4  Data  Lc  HC_SR04.o [4]
+calculateLimitsOfDistance
+                              0x269  0x1c  Code  Lc  HC_SR04.o [4]
+camera_control                0x9cb  0x42  Code  Gb  camera_control.o [5]
+deactivateFlagFromTimers
+                              0xa43   0xe  Code  Lc  camera_control.o [5]
+delayForRedLedReached         0xa0d  0x1c  Code  Lc  camera_control.o [5]
+delayForRedLedReached::led_time_counter
+                        0x2000'0014   0x2  Data  Lc  camera_control.o [5]
+delayHcSr04                   0x165  0x1a  Code  Lc  HC_SR04.o [4]
+distanceEchoCm          0x2000'0000   0x4  Data  Lc  HC_SR04.o [4]
+exit                          0xb7d   0x4  Code  Gb  exit.o [6]
+fallingEdgeTime         0x2000'0008   0x4  Data  Lc  HC_SR04.o [4]
+flag_led                0x2000'0016   0x1  Data  Lc  camera_control.o [5]
+initGpioForHCSr04             0x2bf  0x10  Code  Gb  HC_SR04.o [4]
+initGpioPb2ForT3CCP0          0x2e5  0x32  Code  Lc  HC_SR04.o [4]
+initGpioPb3AsTrigger          0x317  0x16  Code  Lc  HC_SR04.o [4]
+initTimer1ForTimeOfTrigger
+                               0xf5  0x3e  Code  Lc  HC_SR04.o [4]
+initTimer2ForTrigger          0x133  0x32  Code  Lc  HC_SR04.o [4]
+initTimer3ForEchoMeasurement
+                              0x17f  0x52  Code  Lc  HC_SR04.o [4]
+initTimersForHCSr04            0xe5  0x10  Code  Gb  HC_SR04.o [4]
+initialiseAdc                 0x909  0x58  Code  Lc  init.o [2]
+initialiseGpio                0x88d  0x36  Code  Lc  init.o [2]
+initialiseTimer0Interrupt
+                              0x8c3  0x46  Code  Lc  init.o [2]
+initialise_values             0x875  0x18  Code  Gb  init.o [2]
+isAnObjectDetected            0x32d  0x14  Code  Gb  HC_SR04.o [4]
+isDataAvailable         0x2000'0019   0x1  Data  Lc  HC_SR04.o [4]
+isInputTriggered              0xb81   0x8  Code  Gb  sensor_control.o [3]
+isObjectDetected        0x2000'0018   0x1  Data  Lc  HC_SR04.o [4]
+isTimeOfNewMeasurement  0x2000'001a   0x1  Data  Lc  HC_SR04.o [4]
+isTimer0Activated       0x2000'0017   0x1  Data  Lc  camera_control.o [5]
+main                          0xb67  0x16  Code  Gb  main.o [1]
+resetTimer                    0xa51  0x1c  Code  Lc  camera_control.o [5]
+risingEdgeTime          0x2000'0004   0x4  Data  Lc  HC_SR04.o [4]
+sensorControl                 0xb89   0x8  Code  Gb  sensor_control.o [3]
+
+
+[1] = C:\embedded projects\camera shoot\Debug\Obj
+[2] = C:\embedded projects\camera shoot\Debug\Obj\init
+[3] = C:\embedded projects\camera shoot\Debug\Obj\input
+[4] = C:\embedded projects\camera shoot\Debug\Obj\input\Sensors
+[5] = C:\embedded projects\camera shoot\Debug\Obj\output
+[6] = dl7M_tln.a
+[7] = m7M_tls.a
+[8] = rt7M_tl.a
+[9] = shb_l.a
+
+  2'778 bytes of readonly  code memory
+    226 bytes of readonly  data memory
+  4'123 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
