@@ -6,13 +6,12 @@
 
 bool isInputTriggered(void)
 {
-    /*return GPIO_PORTF_AHB_DATA_BITS_R[SW_1] == 0x00;*/
     return isAnObjectDetected();
 }
 
-void sensorControl(void)
+void sensorControl(bool isPictureTaked)
 {
 #if HC_SR04
-    HcSr04Control();
+    HcSr04Control(isPictureTaked);
 #endif
 }

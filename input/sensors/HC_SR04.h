@@ -5,5 +5,5 @@
 
 void initGpioForHCSr04(void);
 void initTimersForHCSr04(void);
-void HcSr04Control(void);
+void HcSr04Control(bool isPictureTaked);
 bool isAnObjectDetected(void);

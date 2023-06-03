@@ -8,6 +8,6 @@
 #include "HC_SR04.h"
 
 bool isInputTriggered(void);
-void sensorControl(void);
+void sensorControl(bool isPictureTaked);
 
 #endif /*__SENSOR_CONTROL_H__*/
