@@ -8,5 +8,6 @@
 
 
 void camera_control(bool isInputTriggered);
+bool isPictureTaked(void);
 
 #endif /*__CAMERA_CONTROL_H__*/
