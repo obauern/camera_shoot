@@ -12,6 +12,7 @@
 static bool flag_led = false;
 
 static bool isTimeForShutter = false;
+static bool pictureTaked = false;
 
 inline static void activateAutoFocusTimerAndSetFlag(void);
 inline static void deactivateFlagFromTimers(void);
@@ -38,6 +39,7 @@ void camera_control(bool isInputTriggered)
             if(delayForShutterReached())
             {
                 deactivateFlagFromTimers();
+                pictureTaked = true;
             }
         }
     }
@@ -86,4 +88,14 @@ inline static void resetTimer(void)
     TIMER0_CTL_R &= ~(1 << 0);
     TIMER0_TAILR_R = ONE_SECOND_TIMER; 
     TIMER0_ICR_R |= (1 << 0);
+}
+
+bool isPictureTaked(void)
+{
+    if(pictureTaked)
+    {
+        pictureTaked = false;
+        return true;
+    }
+    return false;
 }
