@@ -90,7 +90,7 @@ static void initTimer3ForEchoMeasurement(void)
     TIMER3->TAPR = 0x00000000; /*no preescaler*/
     TIMER3->IMR |= (1<<2u);/*interrupt for capture modus in timer 3 activated*/
     NVIC_EnableIRQ(Timer3A_IRQn);
-
+    
     
     TIMER3->CTL |= (1u<<0u); /*enables timer 3*/
 }
@@ -244,5 +244,5 @@ bool isAnObjectDetected(void)
 
 bool isFirstPictureToBeTaken(void)
 {
-    return (numbersOfPictures == 1); /*1 because when the first picture comes numberOfPictures++*/
+    return (numbersOfPictures <= 1); /*1 because when the first picture comes numberOfPictures++*/
 }
