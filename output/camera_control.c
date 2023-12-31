@@ -58,11 +58,14 @@ inline static void processModeContinuousFocus(sensorParameters_t* sensorParamete
         if(true == sensorParametersPtr->isFirstPictureToBeTaken)
         {
             shootPicture();
-            TIMER0_CTL_R |= (1 << 0); /*Enables TIMER 0*/
         }
-        if(isTimeForShooter)
+        else
         {
-            shootPicture();
+            TIMER0_CTL_R |= (1 << 0); /*Enables TIMER 0*/
+            if(isTimeForShooter)
+            {
+                shootPicture();
+            }
         }
     }
     else
