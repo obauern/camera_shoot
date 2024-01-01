@@ -1,0 +1,14 @@
+# Archivos y directorios a ignorar
+Debug/
+Description/
+EK-TM4C123GXL Rev A Design Package/
+Release/
+Steps for project.txt
+camera shot.dep
+camera shot.ewd
+camera shot.ewp
+camera shot.ewt
+datasheets/
+pulse duration with timer capture.docx
+settings/
+st7735/
