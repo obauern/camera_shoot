@@ -13,6 +13,7 @@ void initialise_values(void)
     initialiseAdc();
     initGpioForHCSr04();
     initTimersForHCSr04();
+    initSensorParameters();
 }
 
 /*----------------static functions------------------------*/

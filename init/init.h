@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "tm4c_cmsis.h"
 #include "HC_SR04.h"
+#include "sensor_control.h"
 
 void initialise_values(void);
 
