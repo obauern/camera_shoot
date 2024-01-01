@@ -6,8 +6,10 @@
 #define SW1 (1<<4U)
 
 #define SOUND_V_CM_US 0.0343
-#define MINIMUM_DISTANCE 20.0
+#define MINIMUM_DISTANCE_CM 20.0
 #define NUMBERS_OF_PICTURES 3
+#define TIMER1_100MS    (1600000U - 1U)
+#define TIMER2_1US    (16U - 1U)
 
 static bool isObjectDetected = false;
 static bool flagForNextPicture = true;
@@ -49,7 +51,7 @@ static void initTimer1ForTimeOfTrigger(void)
     TIMER1->CTL = 0x00000000;       // Deshabilitar Timer1A durante la configuración
     TIMER1->CFG = 0x00000000;       // Timer1A en modo de temporizador de 32 bits
     TIMER1->TAMR = 0x00000002;      // Timer1A en modo periódico and the timer counts down
-    TIMER1->TAILR = 16000000 - 1;   // Valor de recarga para generar un retardo de 1 segundo (16 MHz)
+    TIMER1->TAILR = TIMER1_100MS;   // Valor de recarga para generar un retardo de 100 msegundos (16 MHz)
     
     TIMER1->IMR |= (1<<0);          /*Unmasks the interrupt*/
     NVIC_EnableIRQ(Timer1A_IRQn);
@@ -63,7 +65,7 @@ static void initTimer2ForTrigger(void)
     TIMER2->CTL = 0x00000000;       // Deshabilitar Timer2A durante la configuración
     TIMER2->CFG = 0x00000004;       // Timer2A en modo de temporizador de 16 bits
     TIMER2->TAMR = 0x00000002;      // Timer2A en modo periódico and the timer counts down
-    TIMER2->TAILR = 16 - 1;         // Valor de recarga para generar un retardo de 1 micros (16 ciclos a 16 MHz)
+    TIMER2->TAILR = TIMER2_1US;         // Valor de recarga para generar un retardo de 1 micros (16 ciclos a 16 MHz)
     TIMER2->ICR = 0x00000001;       // Limpiar la bandera de interrupción de Timer2A
     TIMER2->CTL |= 0x00000001;      // Habilitar Timer2A
 }
@@ -88,7 +90,7 @@ static void initTimer3ForEchoMeasurement(void)
     TIMER3->TAPR = 0x00000000; /*no preescaler*/
     TIMER3->IMR |= (1<<2u);/*interrupt for capture modus in timer 3 activated*/
     NVIC_EnableIRQ(Timer3A_IRQn);
-
+    
     
     TIMER3->CTL |= (1u<<0u); /*enables timer 3*/
 }
@@ -180,7 +182,7 @@ static bool conditionsForPictureAreMet(void)
 
 static void calculateLimitsOfDistance(void)
 {
-    if(distanceEchoCm < MINIMUM_DISTANCE)
+    if(distanceEchoCm < MINIMUM_DISTANCE_CM)
     {
         isObjectDetected = true;
     }
@@ -238,4 +240,9 @@ bool isAnObjectDetected(void)
         return true;
     }
     return false;
+}
+
+bool isFirstPictureToBeTaken(void)
+{
+    return (numbersOfPictures <= 1); /*1 because when the first picture comes numberOfPictures++*/
 }
