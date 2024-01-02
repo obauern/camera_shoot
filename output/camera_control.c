@@ -93,7 +93,7 @@ static inline void processModeFocusAndShoot(sensorParameters_t* sensorParameters
     else
     {
         resetTimer();
-        activatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
+        deactivatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
     }
 }
 
@@ -107,7 +107,7 @@ static inline void shootPicture(void)
     }
     else
     {
-        activatePin(PIN_SHUTTER);
+        activatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
     }
 }
 
