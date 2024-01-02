@@ -9,6 +9,6 @@
 
 
 void camera_control(sensorParameters_t* sensorParametersPtr);
-bool isPictureTaked(void);
+bool isPictureTaken(void);
 
 #endif /*__CAMERA_CONTROL_H__*/
