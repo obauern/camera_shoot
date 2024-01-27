@@ -24,6 +24,12 @@ void Timer1_init(void)
     initTimerTriggerHCSr04();
 }
 
+void Timer1_clearInterrupt(void)
+{
+    TIMER1->ICR |= 1;
+}       
+
+/*---------------INTERNAL FUNCTIONS-------------------*/
 static void initTimerTriggerHCSr04(void)
 {
     SYSCTL_RCGCTIMER_R |= CLOCK_TIMER1_AVAILABLE; /*clock gating for timer1*/

@@ -19,6 +19,8 @@
 
 #define CLEAR_INTERRUPT_TIMER2   (1U << 0U)
 
+#define IS_TIMER2_TIMED_OUT     (1U << 0U)
+
 void Timer2_init(void)
 {
     SYSCTL_RCGCTIMER_R |= CLOCK_TIMER2_AVAILABLE; /*clock gating for timer2*/
@@ -36,6 +38,16 @@ void Timer2_init(void)
     TIMER2->ICR |= CLEAR_INTERRUPT_TIMER2;
     
     TIMER2->CTL |= ACTIVATE_TIMER2;
+}
+
+void Timer2_clearInterrupt(void)
+{
+    TIMER2->ICR |= 1;
+}
+
+bool Timer2_isTimedOut(void)
+{
+    return ((TIMER2->RIS & IS_TIMER2_TIMED_OUT) == 0);
 }
 
 

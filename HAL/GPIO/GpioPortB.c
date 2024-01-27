@@ -13,6 +13,8 @@
 
 #define PB2_T3CCP0 (7U << 8U)
 
+#define PB2_GPIO_PIN  (1U << 2U)
+
 static void pb2T3CCP0Pb3Trigger(void);
 
 void GpioPortB_init(void)
@@ -34,5 +36,24 @@ static void pb2T3CCP0Pb3Trigger(void)
     
     GPIOB_HS->PCTL &= ~0x00000F00;
     GPIOB_HS->PCTL |= PB2_T3CCP0;
+}
+
+bool GpioPortB_readPin(uint8_t pin)
+{
+    bool retVal = false;
+    if(pin != PB2_GPIO_PIN)
+    {
+        return retVal;
+    }
+    
+    if ((GPIOB_HS->DATA_Bits[pin] & pin) == 0U)
+    {
+      retVal = false;
+    }
+    else
+    {
+      retVal = true;
+    }
+    return retVal;
 }
 

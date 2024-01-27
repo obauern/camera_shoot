@@ -21,6 +21,8 @@
 
 #define ACTIVATE_INTERRUPT_CAPTURE (1U << 2U)
 
+#define CAPTURE_EVENT_INTERRUPT    (1U << 2U)
+
 void Timer3_init(void)
 {
     SYSCTL_RCGCTIMER_R |= CLOCK_TIMER3_AVAILABLE; /*clock gating for timer3*/
@@ -43,6 +45,16 @@ void Timer3_init(void)
     NVIC_EnableIRQ(Timer3A_IRQn);
     
     TIMER3->CTL |= ACTIVATE_TIMER3;
+}
+
+void Timer3_clearCaptureInterrupt(void)
+{
+    TIMER3->ICR |= CAPTURE_EVENT_INTERRUPT;
+}
+
+bool Timer3_isCaptureEventOccurred(void)
+{
+    return (TIMER3->RIS & CAPTURE_EVENT_INTERRUPT);
 }
 
 
