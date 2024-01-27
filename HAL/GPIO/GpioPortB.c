@@ -7,7 +7,7 @@
 #define PB3_OUTPUT (1U << 3U)
 
 #define PB2_DEN   (1U << 2U)
-#define PB3_DEN   (1U << 2U)
+#define PB3_DEN   (1U << 3U)
 
 #define PB2_AFSEL (1U << 2U)
 
