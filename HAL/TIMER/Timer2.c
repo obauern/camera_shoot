@@ -25,13 +25,13 @@ void Timer2_init(void)
     
     TIMER2->CTL &= DEACTIVATE_TIMER2; 
     
-    TIMER2->CFG = MODE_16_BIT;
+    TIMER2->CFG |= MODE_16_BIT;
     
-    TIMER0_TAMR_R &= ~0x03;
-    TIMER0_TAMR_R |= PERIODIC_TIMER_MODE;
-    TIMER0_TAMR_R &= COUNTING_DOWN_MODE;/*counting down*/
+    TIMER2->TAMR &= ~0x03;
+    TIMER2->TAMR |= PERIODIC_TIMER_MODE;
+    TIMER2->TAMR &= COUNTING_DOWN_MODE;/*counting down*/
     
-    TIMER0_TAILR_R = ONE_US_WITH_16_MHZ; /*16Mhz, one microsecond*/
+    TIMER2->TAILR = ONE_US_WITH_16_MHZ; /*16Mhz, one microsecond*/
     
     TIMER2->ICR |= CLEAR_INTERRUPT_TIMER2;
     
