@@ -10,7 +10,7 @@
 
 #define MODE_16_BIT             (1U << 2U)
 
-#define CAPTURE_TIMER_MODE      (3U << 0U)
+#define CAPTURE_TIMER_MODE      (7U << 0U)
 #define COUNTING_UP_MODE        (1U << 4U)
 
 #define MAXIMUM_LIMIT_TIME      (0xFFFFFFFF)
@@ -29,10 +29,9 @@ void Timer3_init(void)
     
     TIMER3->CTL &= DEACTIVATE_TIMER3; 
     
-    TIMER3->CFG |= MODE_16_BIT;
+    TIMER3->CFG = MODE_16_BIT;
 
-    TIMER3->TAMR &= ~0x03;
-    TIMER3->TAMR |= CAPTURE_TIMER_MODE | COUNTING_UP_MODE;
+    TIMER3->TAMR = CAPTURE_TIMER_MODE | COUNTING_UP_MODE;
 
     TIMER3->TAILR = MAXIMUM_LIMIT_TIME; 
     

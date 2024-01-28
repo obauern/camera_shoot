@@ -102,9 +102,9 @@ static void HcSr04TriggerControl(void)
     if(isTimeOfNewMeasurement)
     {
         isTimeOfNewMeasurement = false;
-        GPIOB_HS->DATA |= PB3;/*PB3 trigger activated*/
+        HalPortB_activatePin(PB3);
         delayHcSr04(10);      /*delay of 10 microseconds*/
-        GPIOB_HS->DATA &= ~PB3;/*PB3 trigger deactivated*/
+        HalPortB_deactivatePin(PB3);
     }
 }
 
