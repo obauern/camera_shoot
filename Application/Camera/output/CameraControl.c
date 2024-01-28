@@ -3,6 +3,7 @@
 #include <assert.h>
 
 #include "HAL/GPIO/GpioPortF.h"
+#include "HAL/TIMER/Timer0.h"
 
 #define LED_RED         (1U << 1U)
 #define PIN_SHUTTER     (1 << 1U) /*PF1*/
@@ -26,7 +27,7 @@ static void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersP
 
 void TIMER0_Handler(void)
 {
-    TIMER0->ICR |= 1; /* Writing a 1 to this bit clears the TATORIS bit */
+    Timer0_clearInterrupt();
     isTimeForShooter = true;
 }
 
@@ -57,7 +58,7 @@ bool CameraControl_IsPictureTaken(void)
     return false;
 }
 
-/* Intern functions */
+/* ----------------Intern functions--------------------------------------------- */
 
 static void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr)
 {
@@ -73,7 +74,7 @@ static void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr)
         }
         else
         {
-            TIMER0_CTL_R |= (1 << 0); /* Enables TIMER 0 */
+            Timer0_start();
 
             if(isTimeForShooter)
             {
@@ -94,7 +95,7 @@ static void processModeFocusAndShoot(sensorParameters_t* sensorParametersPtr)
     {
         isShootProcessRunning = true;
         timerDelayDueToNumberOfPicture(sensorParametersPtr);
-        TIMER0_CTL_R |= (1 << 0); /* Enables TIMER 0 */
+        Timer0_start();
         GpioPortF_activatePin(PIN_AUTOFOCUS);
 
         if(isTimeForShooter)
@@ -127,11 +128,11 @@ static void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersP
 {
     if(sensorParametersPtr->isFirstPictureToBeTaken && sensorParametersPtr->isInputTrigered)
     {
-        TIMER0_TAILR_R = 4 * ONE_SECOND_TIMER_VALUE;
+        Timer0_setTimerCounter(4 * ONE_SECOND_TIMER_VALUE);
     }
     else if(sensorParametersPtr->isInputTrigered)
     {
-        TIMER0_TAILR_R = ONE_SECOND_TIMER_VALUE;
+        Timer0_setTimerCounter(ONE_SECOND_TIMER_VALUE);
     }
 }
 
@@ -152,9 +153,9 @@ static bool delayPressingShutterReached(void)
 
 static void resetTimer(void)
 {
-    TIMER0_CTL_R &= ~(1 << 0); /* Disables TIMER A */
-    TIMER0_TAILR_R = ONE_SECOND_TIMER_VALUE; 
-    TIMER0_ICR_R |= (1 << 0); /* Writing a 1 to this bit clears the TATORIS bit */
+    Timer0_stop();
+    Timer0_setTimerCounter(ONE_SECOND_TIMER_VALUE);
+    Timer0_clearInterrupt();
 } 
 
 
