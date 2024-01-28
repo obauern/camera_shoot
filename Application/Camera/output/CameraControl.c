@@ -1,5 +1,8 @@
 #include "CameraControl.h"
+
 #include <assert.h>
+
+#include "HAL/GPIO/GpioPortF.h"
 
 #define LED_RED         (1U << 1U)
 #define PIN_SHUTTER     (1 << 1U) /*PF1*/
@@ -29,7 +32,7 @@ void TIMER0_Handler(void)
     isTimeForShooter = true;
 }
 
-void camera_control(sensorParameters_t* sensorParametersPtr)
+void CameraControl_Control(sensorParameters_t* sensorParametersPtr)
 {
     switch(sensorParametersPtr->shootMode)
     {
@@ -45,11 +48,22 @@ void camera_control(sensorParameters_t* sensorParametersPtr)
     }
 }
 
+bool CameraControl_IsPictureTaken(void)
+{
+    if(pictureTaken)
+    {
+        pictureTaken = false;
+        return true;
+    }
+
+    return false;
+}
+
 /* Intern functions */
 
 static inline void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr)
 {
-    activatePin(PIN_AUTOFOCUS);
+    GpioPortF_activatePin(PIN_AUTOFOCUS);
 
     if(sensorParametersPtr->isInputTrigered || isShootProcessRunning)
     {
@@ -72,7 +86,7 @@ static inline void processModeContinuousFocus(sensorParameters_t* sensorParamete
     else
     {
         resetTimer();
-        deactivatePin(PIN_SHUTTER);
+        GpioPortF_deactivatePin(PIN_SHUTTER);
     }
 }
 
@@ -83,7 +97,7 @@ static inline void processModeFocusAndShoot(sensorParameters_t* sensorParameters
         isShootProcessRunning = true;
         timerDelayDueToNumberOfPicture(sensorParametersPtr);
         TIMER0_CTL_R |= (1 << 0); /* Enables TIMER 0 */
-        activatePin(PIN_AUTOFOCUS);
+        GpioPortF_activatePin(PIN_AUTOFOCUS);
 
         if(isTimeForShooter)
         {
@@ -93,7 +107,7 @@ static inline void processModeFocusAndShoot(sensorParameters_t* sensorParameters
     else
     {
         resetTimer();
-        deactivatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
+        GpioPortF_deactivatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
     }
 }
 
@@ -107,7 +121,7 @@ static inline void shootPicture(void)
     }
     else
     {
-        activatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
+        GpioPortF_activatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
     }
 }
 
@@ -155,13 +169,4 @@ static inline void resetTimer(void)
     TIMER0_ICR_R |= (1 << 0); /* Writing a 1 to this bit clears the TATORIS bit */
 } 
 
-bool isPictureTaken(void)
-{
-    if(pictureTaken)
-    {
-        pictureTaken = false;
-        return true;
-    }
 
-    return false;
-}

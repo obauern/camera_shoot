@@ -32,3 +32,13 @@ void GpioPortF_init(void)
     
     GPIO_PORTF_AHB_DEN_R |= PF1_DEN | PF2_DEN | PF3_DEN | PF4_DEN;
 }
+
+void GpioPortF_activatePin(uint8_t pin)
+{
+    GPIOF_HS->DATA_Bits[pin] = 0xFFFFFFFF;
+}
+
+void GpioPortF_deactivatePin(uint8_t pin)
+{
+    GPIOF_HS->DATA_Bits[pin] = 0;
+}
