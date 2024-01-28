@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "tm4c_cmsis.h"
 #include "TM4C123GH6PM.h"
-#include "sensor_control.h"
+#include "Application/Camera/input/SensorControl.h"
 
 
 void camera_control(sensorParameters_t* sensorParametersPtr);

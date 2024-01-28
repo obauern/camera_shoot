@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "tm4c_cmsis.h"
-#include "sensor_control.h"
+#include "Application/Camera/input/SensorControl.h"
 
 void initGpioForHCSr04(void);
 void initTimersForHCSr04(void);

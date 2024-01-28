@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "tm4c_cmsis.h"
 #include "TM4C123GH6PM.h"
-#include "HC_SR04.h"
+#include "Application/Camera/input/Sensors/Hcsr04.h"
 
 typedef enum
 {

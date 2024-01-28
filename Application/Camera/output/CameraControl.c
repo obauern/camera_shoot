@@ -1,4 +1,4 @@
-#include "camera_control.h"
+#include "CameraControl.h"
 #include <assert.h>
 
 #define LED_RED         (1U << 1U)

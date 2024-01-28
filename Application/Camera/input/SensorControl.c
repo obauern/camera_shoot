@@ -1,5 +1,5 @@
-#include "sensor_control.h"
-#include "HC_SR04.h"
+#include "SensorControl.h"
+#include "Application/Camera/input/Sensors/Hcsr04.h"
 
 #define SW_1 (1U << 4U)
 #define SW_0 (1U << 0U)
