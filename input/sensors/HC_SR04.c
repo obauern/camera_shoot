@@ -59,11 +59,11 @@ void TIMER3A_Handler(void) /*Interruption for timer to measure the echo pulse*/
         Timer3_clearCaptureInterrupt();
         if(GpioPortB_readPin(PB2_GPIO_PIN)) /*rising register*/
         {
-            risingEdgeTime = TIMER3->TAR;
+            risingEdgeTime = Timer3_valueCountRegister();
         }
         else
         {
-            fallingEdgeTime = TIMER3->TAR;
+            fallingEdgeTime = Timer3_valueCountRegister();
             isDataAvailable = true;
         }
     }

@@ -57,5 +57,10 @@ bool Timer3_isCaptureEventOccurred(void)
     return (TIMER3->RIS & CAPTURE_EVENT_INTERRUPT);
 }
 
+uint32_t Timer3_valueCountRegister(void)
+{
+    return TIMER3->TAR;
+}
+
 
 
