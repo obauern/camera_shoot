@@ -5,16 +5,12 @@
 #include "HAL/TIMER/Timer2.h"
 #include "HAL/TIMER/Timer3.h"
 
-#define PB2 (1<<2U)
-#define PB3 (1<<3U)
-#define PF0 (1<<0U)
-#define SW1 (1<<4U)
-
-#define SOUND_V_CM_US 0.0343
-#define MINIMUM_DISTANCE_CM 20.0
-#define NUMBERS_OF_PICTURES 3
-
 #define PB2_GPIO_PIN   (1U << 2U)
+#define PB3 (1<<3U)
+
+#define SOUND_V_CM_US (0.0343)
+#define MINIMUM_DISTANCE_CM (20.0)
+#define NUMBERS_OF_PICTURES (3U)
 
 static bool isObjectDetected = false;
 static bool flagForNextPicture = true;
@@ -35,16 +31,6 @@ static bool conditionsForPictureAreMet(void);
 static void calculateLimitsOfDistance(void);
 static void calculateIfPicturesCanBeTaken(void);
 
-
-void delayHcSr04(uint32_t microseconds)
-{
-  // Generar el retardo
-    for (uint32_t i = 0; i < microseconds; i++) 
-    {
-        while (Timer2_isTimedOut());    // Esperar a que se active la bandera de interrupción de Timer2A
-        Timer2_clearInterrupt();                   // Limpiar la bandera de interrupción de Timer2A
-    }
-}
 
 void TIMER1A_Handler(void)
 {
@@ -70,7 +56,7 @@ void TIMER3A_Handler(void) /*Interruption for timer to measure the echo pulse*/
 }
 
 /**/
-void HcSr04Control(bool isPictureTaked)
+void HcSr04_Control(bool isPictureTaked)
 {
     if(isPictureTaked)
     {
@@ -80,7 +66,7 @@ void HcSr04Control(bool isPictureTaked)
     HcSr04DataProcessingControl();
 }
 
-bool isAnObjectDetected(void)
+bool HcSr04_isAnObjectDetected(void)
 {
     if(pictureToBeTaken)
     {
@@ -90,12 +76,22 @@ bool isAnObjectDetected(void)
     return false;
 }
 
-bool isFirstPictureToBeTaken(void)
+bool HcSr04_isFirstPictureToBeTaken(void)
 {
     return (numbersOfPictures <= 1); /*1 because when the first picture comes numberOfPictures++*/
 }
 
 /*-------------INTERNAL FUNCTIONS----------------*/
+
+static void delayHcSr04(uint32_t microseconds)
+{
+  // Generar el retardo
+    for (uint32_t i = 0; i < microseconds; i++) 
+    {
+        while (Timer2_isTimedOut());    // Esperar a que se active la bandera de interrupción de Timer2A
+        Timer2_clearInterrupt();                   // Limpiar la bandera de interrupción de Timer2A
+    }
+}
 
 static void HcSr04TriggerControl(void)
 {

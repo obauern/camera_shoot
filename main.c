@@ -11,7 +11,7 @@ int main()
     
     while(true)
     {
-        sensorControl(isPictureTaken());
-        camera_control(returnSensorParameters());
+        SensorControl_Control(CameraControl_IsPictureTaken());
+        CameraControl_Control(returnSensorParameters());
     }
 }
