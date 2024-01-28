@@ -23,14 +23,14 @@ void GpioPortF_init(void)
     
     SYSCTL_GPIOHBCTL_R |= SYSCTL_GPIOHBCTL_PORTF; /*activates the ahb*/
     
-    GPIO_PORTF_AHB_DIR_R |= PF1_OUTPUT | PF2_OUTPUT | PF3_OUTPUT;
-    GPIO_PORTF_AHB_DIR_R &= PF4_INPUT;
+    GPIOF_HS->DIR |= PF1_OUTPUT | PF2_OUTPUT | PF3_OUTPUT;
+    GPIOF_HS->DIR &= PF4_INPUT;
     
-    GPIO_PORTF_AHB_AFSEL_R = NO_AFSEL;
+    GPIOF_HS->AFSEL = NO_AFSEL;
     
-    GPIO_PORTF_AHB_PUR_R |= PF4_PULLUP; /*pull up for the input*/
+    GPIOF_HS->PUR |= PF4_PULLUP; /*pull up for the input*/
     
-    GPIO_PORTF_AHB_DEN_R |= PF1_DEN | PF2_DEN | PF3_DEN | PF4_DEN;
+    GPIOF_HS->DEN |= PF1_DEN | PF2_DEN | PF3_DEN | PF4_DEN;
 }
 
 void GpioPortF_activatePin(uint8_t pin)
