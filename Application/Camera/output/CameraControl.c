@@ -17,14 +17,12 @@ static bool isShootProcessRunning = false;
 static bool isTimeForShooter = false;
 static bool pictureTaken = false;
 
-static inline void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr);
-static inline void processModeFocusAndShoot(sensorParameters_t* sensorParametersPtr);
-static inline void shootPicture(void);
-static inline void resetTimer(void);
-static inline bool delayPressingShutterReached(void);
-static inline void activatePin(uint8_t pin);
-static inline void deactivatePin(uint8_t pin);
-static inline void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersPtr);
+static void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr);
+static void processModeFocusAndShoot(sensorParameters_t* sensorParametersPtr);
+static void shootPicture(void);
+static void resetTimer(void);
+static bool delayPressingShutterReached(void);
+static void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersPtr);
 
 void TIMER0_Handler(void)
 {
@@ -61,7 +59,7 @@ bool CameraControl_IsPictureTaken(void)
 
 /* Intern functions */
 
-static inline void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr)
+static void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr)
 {
     GpioPortF_activatePin(PIN_AUTOFOCUS);
 
@@ -90,7 +88,7 @@ static inline void processModeContinuousFocus(sensorParameters_t* sensorParamete
     }
 }
 
-static inline void processModeFocusAndShoot(sensorParameters_t* sensorParametersPtr)
+static void processModeFocusAndShoot(sensorParameters_t* sensorParametersPtr)
 {
     if(sensorParametersPtr->isInputTrigered || isShootProcessRunning)
     {
@@ -111,7 +109,7 @@ static inline void processModeFocusAndShoot(sensorParameters_t* sensorParameters
     }
 }
 
-static inline void shootPicture(void)
+static void shootPicture(void)
 {
     if(delayPressingShutterReached())
     {
@@ -125,7 +123,7 @@ static inline void shootPicture(void)
     }
 }
 
-static inline void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersPtr)
+static void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersPtr)
 {
     if(sensorParametersPtr->isFirstPictureToBeTaken && sensorParametersPtr->isInputTrigered)
     {
@@ -137,7 +135,7 @@ static inline void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorPara
     }
 }
 
-static inline bool delayPressingShutterReached(void)
+static bool delayPressingShutterReached(void)
 {
     static uint16_t ledTimeCounter = 0;
     
@@ -152,17 +150,7 @@ static inline bool delayPressingShutterReached(void)
     return false;
 }
 
-static inline void activatePin(uint8_t pin)
-{
-    GPIOF_HS->DATA_Bits[pin] = 0xFFFFFFFF;
-}
-
-static inline void deactivatePin(uint8_t pin)
-{
-    GPIOF_HS->DATA_Bits[pin] = 0;
-}
-
-static inline void resetTimer(void)
+static void resetTimer(void)
 {
     TIMER0_CTL_R &= ~(1 << 0); /* Disables TIMER A */
     TIMER0_TAILR_R = ONE_SECOND_TIMER_VALUE; 
