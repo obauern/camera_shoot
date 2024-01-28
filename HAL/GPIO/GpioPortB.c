@@ -25,17 +25,14 @@ void GpioPortB_init(void)
     pb2T3CCP0Pb3Trigger();
 }
 
-static void pb2T3CCP0Pb3Trigger(void)
+void HalPortB_activatePin(uint8_t pin)
 {
-    GPIOB_HS->DIR &= PB2_INPUT; 
-    GPIOB_HS->DIR |= PB3_OUTPUT;
-    
-    GPIOB_HS->DEN |= PB2_DEN | PB3_DEN;  
-    
-    GPIOB_HS->AFSEL |= PB2_AFSEL; /*Special function in PB2*/
-    
-    GPIOB_HS->PCTL &= ~0x00000F00;
-    GPIOB_HS->PCTL |= PB2_T3CCP0;
+    GPIOB_HS->DATA_Bits[pin] = 0xFFFFFFFF;
+}
+
+void HalPortB_deactivatePin(uint8_t pin)
+{
+    GPIOB_HS->DATA_Bits[pin] = 0;
 }
 
 bool GpioPortB_readPin(uint8_t pin)
@@ -56,4 +53,20 @@ bool GpioPortB_readPin(uint8_t pin)
     }
     return retVal;
 }
+
+/*-----------INTERNAL FUNCTIONS-------------*/
+
+static void pb2T3CCP0Pb3Trigger(void)
+{
+    GPIOB_HS->DIR &= PB2_INPUT; 
+    GPIOB_HS->DIR |= PB3_OUTPUT;
+    
+    GPIOB_HS->DEN |= PB2_DEN | PB3_DEN;  
+    
+    GPIOB_HS->AFSEL |= PB2_AFSEL; /*Special function in PB2*/
+    
+    GPIOB_HS->PCTL &= ~0x00000F00;
+    GPIOB_HS->PCTL |= PB2_T3CCP0;
+}
+
 
