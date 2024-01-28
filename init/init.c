@@ -27,7 +27,7 @@ void initialise_values(void)
     Timer2_init(); 
     Timer3_init(); /*Echo measurements*/     
     
-    initSensorParameters();
+    SensorControl_Init();
 }
 
 /*----------------static functions------------------------*/
