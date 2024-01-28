@@ -18,12 +18,12 @@ static bool isShootProcessRunning = false;
 static bool isTimeForShooter = false;
 static bool pictureTaken = false;
 
-static void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr);
-static void processModeFocusAndShoot(sensorParameters_t* sensorParametersPtr);
+static void processModeContinuousFocus(sensorParameters_t sensorParameters);
+static void processModeFocusAndShoot(sensorParameters_t sensorParameters);
 static void shootPicture(void);
 static void resetTimer(void);
 static bool delayPressingShutterReached(void);
-static void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersPtr);
+static void timerDelayDueToNumberOfPicture(sensorParameters_t sensorParameters);
 
 void TIMER0_Handler(void)
 {
@@ -31,15 +31,15 @@ void TIMER0_Handler(void)
     isTimeForShooter = true;
 }
 
-void CameraControl_Control(sensorParameters_t* sensorParametersPtr)
+void CameraControl_Control(sensorParameters_t sensorParameters)
 {
-    switch(sensorParametersPtr->shootMode)
+    switch(sensorParameters.shootMode)
     {
         case MODE_FOCUS_AND_SHOOT:
-            processModeFocusAndShoot(sensorParametersPtr);
+            processModeFocusAndShoot(sensorParameters);
             break;
         case MODE_CONTINUOUSFOCUS_AND_SHOOT:
-            processModeContinuousFocus(sensorParametersPtr);
+            processModeContinuousFocus(sensorParameters);
             break;
         default:
             assert(false);
@@ -60,15 +60,15 @@ bool CameraControl_IsPictureTaken(void)
 
 /* ----------------Intern functions--------------------------------------------- */
 
-static void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr)
+static void processModeContinuousFocus(sensorParameters_t sensorParameters)
 {
     GpioPortF_activatePin(PIN_AUTOFOCUS);
 
-    if(sensorParametersPtr->isInputTrigered || isShootProcessRunning)
+    if(sensorParameters.isInputTrigered || isShootProcessRunning)
     {
         isShootProcessRunning = true;
 
-        if(sensorParametersPtr->isFirstPictureToBeTaken)
+        if(sensorParameters.isFirstPictureToBeTaken)
         {
             shootPicture();
         }
@@ -89,12 +89,12 @@ static void processModeContinuousFocus(sensorParameters_t* sensorParametersPtr)
     }
 }
 
-static void processModeFocusAndShoot(sensorParameters_t* sensorParametersPtr)
+static void processModeFocusAndShoot(sensorParameters_t sensorParameters)
 {
-    if(sensorParametersPtr->isInputTrigered || isShootProcessRunning)
+    if(sensorParameters.isInputTrigered || isShootProcessRunning)
     {
         isShootProcessRunning = true;
-        timerDelayDueToNumberOfPicture(sensorParametersPtr);
+        timerDelayDueToNumberOfPicture(sensorParameters);
         Timer0_start();
         GpioPortF_activatePin(PIN_AUTOFOCUS);
 
@@ -124,13 +124,13 @@ static void shootPicture(void)
     }
 }
 
-static void timerDelayDueToNumberOfPicture(sensorParameters_t* sensorParametersPtr)
+static void timerDelayDueToNumberOfPicture(sensorParameters_t sensorParameters)
 {
-    if(sensorParametersPtr->isFirstPictureToBeTaken && sensorParametersPtr->isInputTrigered)
+    if(sensorParameters.isFirstPictureToBeTaken && sensorParameters.isInputTrigered)
     {
         Timer0_setTimerCounter(4 * ONE_SECOND_TIMER_VALUE);
     }
-    else if(sensorParametersPtr->isInputTrigered)
+    else if(sensorParameters.isInputTrigered)
     {
         Timer0_setTimerCounter(ONE_SECOND_TIMER_VALUE);
     }

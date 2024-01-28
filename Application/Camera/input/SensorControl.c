@@ -10,12 +10,13 @@ void SensorControl_Init(void)
     sensorParameters.isInputTrigered = false;
 }
 
-sensorParameters_t* returnSensorParameters(void)
+sensorParameters_t SensorControl_Parameters(void)
 {
     sensorParameters.isInputTrigered = HcSr04_isAnObjectDetected();
     sensorParameters.isFirstPictureToBeTaken = HcSr04_isFirstPictureToBeTaken();
-    sensorParameters.shootMode = MODE_CONTINUOUSFOCUS_AND_SHOOT;
-    return &sensorParameters;
+    //sensorParameters.shootMode = MODE_CONTINUOUSFOCUS_AND_SHOOT;
+    sensorParameters.shootMode = MODE_FOCUS_AND_SHOOT;
+    return sensorParameters;
 }
 
 void SensorControl_Control(bool isPictureTaked)

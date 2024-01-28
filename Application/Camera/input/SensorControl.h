@@ -24,7 +24,7 @@ typedef struct
 static sensorParameters_t sensorParameters;
 
 void SensorControl_Init(void);
-sensorParameters_t* returnSensorParameters(void);
+sensorParameters_t SensorControl_Parameters(void);
 void SensorControl_Control(bool isPictureTaked);
 
 #endif /*__SENSOR_CONTROL_H__*/
