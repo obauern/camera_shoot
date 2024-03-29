@@ -6,6 +6,7 @@
  */
 #include "Application/Visual/Pages/Page2.h"
 
+#include "Application/Camera/output/CameraControl.h"
 #include "Application/Visual/Tools/ili9341Button.h"
 #include "Application/Visual/Tools/ili9341Display.h"
 #include "Service/TouchPanel/Panel/ili9341.h"
@@ -81,6 +82,7 @@ static void buttonTestFunction(void)
     //nextPage = PAGES_NUMBER_1;
     testVariable += 50;
     (void)ili9341Display_Draw(numberDisplay);
+    CameraControl_triggerManualPicture();
 }
 
 static void initDisplay1(void)

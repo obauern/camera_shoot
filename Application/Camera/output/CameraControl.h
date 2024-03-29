@@ -15,6 +15,7 @@ typedef enum CameraControlMode_TAG
 }CameraControlMode_t;
 
 void CameraControl_init(void);
+void CameraControl_triggerManualPicture(void);
 void CameraControl_Control(void);
 bool CameraControl_isPictureTaken(void);
 void CameraControl_setMode(CameraControlMode_t);

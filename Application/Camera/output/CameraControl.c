@@ -1,4 +1,4 @@
-#include "CameraControl.h"
+#include "Application/Camera/output/CameraControl.h"
 
 #include <assert.h>
 
@@ -21,6 +21,7 @@ static bool pictureTaken = false;
 typedef struct cameraControl_Tag
 {
     CameraControlMode_t cameraControlMode;
+    bool triggerManualPicture;
 }cameraControl_t;
 
 static cameraControl_t cameraControl;
@@ -32,10 +33,12 @@ static void shootPicture(void);
 static void resetTimer(void);
 static bool delayPressingShutterReached(void);
 static void timerDelayDueToNumberOfPicture(sensorParameters_t sensorParameters);
+static void handleManualCameraControl(void);
 
 void CameraControl_init(void)
 {
-    cameraControl.cameraControlMode = CAMERA_MODE_SENSOR;
+    cameraControl.cameraControlMode = CAMERA_MODE_MANUAL;
+    cameraControl.triggerManualPicture = false;
 }
 
 void TIMER0_Handler(void)
@@ -53,6 +56,7 @@ void CameraControl_Control(void)
       break;
       
     case CAMERA_MODE_MANUAL:
+      handleManualCameraControl();
       break;
       
     case CAMERA_MODE_DEACTIVATED:
@@ -80,10 +84,43 @@ void CameraControl_setMode(CameraControlMode_t cameraControlMode)
     if (cameraControlMode != cameraControl.cameraControlMode)
     {
         cameraControl.cameraControlMode = cameraControlMode;
+        cameraControl.triggerManualPicture = false;
     }
 }
 
+void CameraControl_triggerManualPicture(void)
+{
+    cameraControl.triggerManualPicture = true;
+}
+
 /* ----------------Intern functions--------------------------------------------- */
+
+static void handleManualCameraControl(void)
+{
+   
+    if(cameraControl.triggerManualPicture || isShootProcessRunning)
+    {
+        isShootProcessRunning = true;
+        if (true == cameraControl.triggerManualPicture)
+        {
+            Timer0_setTimerCounter(4 * ONE_SECOND_TIMER_VALUE);
+            cameraControl.triggerManualPicture = false;
+        }
+        Timer0_start();
+        GpioPortF_activatePin(PIN_AUTOFOCUS);
+
+        if(isTimeForShooter)
+        {
+            shootPicture();
+        }
+    }
+    else
+    {
+        resetTimer();
+        GpioPortF_deactivatePin(PIN_AUTOFOCUS | PIN_SHUTTER);
+    }
+    
+}
 
 static void handleSensorCameraControl(void)
 {
@@ -160,6 +197,7 @@ static void shootPicture(void)
         isTimeForShooter = false;
         isShootProcessRunning = false;
         pictureTaken = true;
+        cameraControl.triggerManualPicture = false;
     }
     else
     {
