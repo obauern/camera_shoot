@@ -6,6 +6,9 @@
 #include "Application/Camera/input/SensorControl.h"
 #include "TM4C123GH6PM.h"
 #include "tm4c_cmsis.h"
+#include "HAL/CLOCK/clockRegister.h"
+#include "HAL/SPI/HalSpi.h"
+#include "HAL/GPIO/GpioPortA.h"
 #include "HAL/GPIO/GpioPortB.h"
 #include "HAL/GPIO/GpioPortF.h"
 #include "HAL/TIMER/Timer0.h"
@@ -15,8 +18,11 @@
 
 
 
-void initialise_values(void)
+void initialise_registers(void)
 {
+    ClockRegister_init();
+    HalSpi_init();
+    GpioPortA_init();
     GpioPortB_init();
     GpioPortF_init();
     

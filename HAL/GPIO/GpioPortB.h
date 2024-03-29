@@ -4,6 +4,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define TOUCH_CS_Pin (1U << 0U)
+#define TOUCH_IRQ_Pin (1U << 1U)
+
 void GpioPortB_init(void);
 void HalPortB_activatePin(uint8_t pin);
 void HalPortB_deactivatePin(uint8_t pin);
