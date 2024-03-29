@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-void initPortA(void);
+void GpioPortA_init(void);
 void GpioPortA_activatePin(uint8_t pin);
 void GpioPortA_deactivatePin(uint8_t pin);
 

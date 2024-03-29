@@ -6,7 +6,7 @@
  */
 
 
-#include "clockRegister.h"
+#include "HAL/CLOCK/clockRegister.h"
 #include "tm4c_cmsis.h"
 
 #define SYSCTL_BASE     0x400FE000
@@ -35,7 +35,7 @@
 
 static void systemClockTo66MHz(void);
 
-void clockInit(void)
+void ClockRegister_init(void)
 {
     systemClockTo66MHz();
 }

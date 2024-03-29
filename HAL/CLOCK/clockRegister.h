@@ -8,6 +8,6 @@
 #ifndef CLOCK_REGISTER_H_
 #define CLOCK_REGISTER_H_
 
-void clockInit(void);
+void ClockRegister_init(void);
 
 #endif /* CLOCK_REGISTER_H_ */

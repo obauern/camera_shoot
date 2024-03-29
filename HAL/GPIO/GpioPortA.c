@@ -47,7 +47,7 @@
 #define PA4_PUR  (1U << 4U)
 #define PA5_PUR  (1U << 5U)
 
-void initPortA(void)
+void GpioPortA_init(void)
 {
     // Habilita el puerto A para los pines SPI
     SYSCTL_RCGCGPIO |= CLOCK_PORTA_AVAILABLE;           // Habilitar el reloj para el puerto A (RCGCGPIO)
