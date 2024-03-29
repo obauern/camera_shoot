@@ -10,7 +10,7 @@ void SensorControl_Init(void)
     sensorParameters.isInputTrigered = false;
 }
 
-sensorParameters_t SensorControl_Parameters(void)
+sensorParameters_t SensorControl_getParameters(void)
 {
     sensorParameters.isInputTrigered = HcSr04_isAnObjectDetected();
     sensorParameters.isFirstPictureToBeTaken = HcSr04_isFirstPictureToBeTaken();
@@ -19,9 +19,9 @@ sensorParameters_t SensorControl_Parameters(void)
     return sensorParameters;
 }
 
-void SensorControl_Control(bool isPictureTaked)
+void SensorControl_Control(void)
 {
 #if HC_SR04
-    HcSr04_Control(isPictureTaked);
+    HcSr04_Control();
 #endif
 }

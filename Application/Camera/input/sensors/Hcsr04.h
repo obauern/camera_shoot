@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-void HcSr04_Control(bool isPictureTaked);
+void HcSr04_Control(void);
 bool HcSr04_isAnObjectDetected(void);
 bool HcSr04_isFirstPictureToBeTaken(void);
 

@@ -1,5 +1,6 @@
 #include "Hcsr04.h"
 
+#include "Application/Camera/output/CameraControl.h"
 #include "HAL/GPIO/GpioPortB.h"
 #include "HAL/TIMER/Timer1.h"
 #include "HAL/TIMER/Timer2.h"
@@ -56,9 +57,10 @@ void TIMER3A_Handler(void) /*Interruption for timer to measure the echo pulse*/
 }
 
 /**/
-void HcSr04_Control(bool isPictureTaked)
+void HcSr04_Control(void)
 {
-    if(isPictureTaked)
+    bool isPictureTaked = CameraControl_IsPictureTaken();
+    if(true == isPictureTaked)
     {
         internIsPictureTaked = true;
     }

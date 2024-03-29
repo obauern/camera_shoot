@@ -31,8 +31,10 @@ void TIMER0_Handler(void)
     isTimeForShooter = true;
 }
 
-void CameraControl_Control(sensorParameters_t sensorParameters)
+void CameraControl_Control(void)
 {
+    sensorParameters_t sensorParameters = SensorControl_getParameters();
+    
     switch(sensorParameters.shootMode)
     {
         case MODE_FOCUS_AND_SHOOT:

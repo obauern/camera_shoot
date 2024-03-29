@@ -8,7 +8,7 @@
 #include "Application/Camera/input/SensorControl.h"
 
 
-void CameraControl_Control(sensorParameters_t sensorParameters);
+void CameraControl_Control(void);
 bool CameraControl_IsPictureTaken(void);
 
 #endif /*__CAMERA_CONTROL_H__*/
