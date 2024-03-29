@@ -15,7 +15,7 @@
 
 
 
-void initialise_values(void)
+void initialise_registers(void)
 {
     GpioPortB_init();
     GpioPortF_init();

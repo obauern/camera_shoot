@@ -7,7 +7,7 @@
 
 int main()
 {
-    initialise_values();
+    initialise_registers();
     CameraControl_init();
     
     while(true)
