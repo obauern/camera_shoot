@@ -18,12 +18,25 @@ static bool isShootProcessRunning = false;
 static bool isTimeForShooter = false;
 static bool pictureTaken = false;
 
+typedef struct cameraControl_Tag
+{
+    CameraControlMode_t cameraControlMode;
+}cameraControl_t;
+
+static cameraControl_t cameraControl;
+
+static void handleSensorCameraControl(void);
 static void processModeContinuousFocus(sensorParameters_t sensorParameters);
 static void processModeFocusAndShoot(sensorParameters_t sensorParameters);
 static void shootPicture(void);
 static void resetTimer(void);
 static bool delayPressingShutterReached(void);
 static void timerDelayDueToNumberOfPicture(sensorParameters_t sensorParameters);
+
+void CameraControl_init(void)
+{
+    cameraControl.cameraControlMode = CAMERA_MODE_SENSOR;
+}
 
 void TIMER0_Handler(void)
 {
@@ -32,6 +45,47 @@ void TIMER0_Handler(void)
 }
 
 void CameraControl_Control(void)
+{
+    switch(cameraControl.cameraControlMode)
+    {
+    case CAMERA_MODE_SENSOR:
+      handleSensorCameraControl();
+      break;
+      
+    case CAMERA_MODE_MANUAL:
+      break;
+      
+    case CAMERA_MODE_DEACTIVATED:
+      break;
+      
+    default:
+      assert(false);
+      break;
+    }
+}
+
+bool CameraControl_isPictureTaken(void)
+{
+    if(pictureTaken)
+    {
+        pictureTaken = false;
+        return true;
+    }
+
+    return false;
+}
+
+void CameraControl_setMode(CameraControlMode_t cameraControlMode)
+{
+    if (cameraControlMode != cameraControl.cameraControlMode)
+    {
+        cameraControl.cameraControlMode = cameraControlMode;
+    }
+}
+
+/* ----------------Intern functions--------------------------------------------- */
+
+static void handleSensorCameraControl(void)
 {
     sensorParameters_t sensorParameters = SensorControl_getParameters();
     
@@ -48,19 +102,6 @@ void CameraControl_Control(void)
             break;
     }
 }
-
-bool CameraControl_IsPictureTaken(void)
-{
-    if(pictureTaken)
-    {
-        pictureTaken = false;
-        return true;
-    }
-
-    return false;
-}
-
-/* ----------------Intern functions--------------------------------------------- */
 
 static void processModeContinuousFocus(sensorParameters_t sensorParameters)
 {

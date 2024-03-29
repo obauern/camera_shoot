@@ -8,6 +8,7 @@
 int main()
 {
     initialise_values();
+    CameraControl_init();
     
     while(true)
     {

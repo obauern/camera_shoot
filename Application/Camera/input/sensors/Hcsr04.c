@@ -59,7 +59,7 @@ void TIMER3A_Handler(void) /*Interruption for timer to measure the echo pulse*/
 /**/
 void HcSr04_Control(void)
 {
-    bool isPictureTaked = CameraControl_IsPictureTaken();
+    bool isPictureTaked = CameraControl_isPictureTaken();
     if(true == isPictureTaked)
     {
         internIsPictureTaked = true;
