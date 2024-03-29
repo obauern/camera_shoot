@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "tm4c_cmsis.h"
 #include "TM4C123GH6PM.h"
-#include "HC_SR04.h"
+#include "Application/Camera/input/Sensors/Hcsr04.h"
 
 typedef enum
 {
@@ -23,8 +23,8 @@ typedef struct
 
 static sensorParameters_t sensorParameters;
 
-void initSensorParameters(void);
-sensorParameters_t* returnSensorParameters(void);
-void sensorControl(bool isPictureTaked);
+void SensorControl_Init(void);
+sensorParameters_t SensorControl_getParameters(void);
+void SensorControl_Control(void);
 
 #endif /*__SENSOR_CONTROL_H__*/

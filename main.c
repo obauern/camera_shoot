@@ -1,17 +1,18 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "tm4c_cmsis.h"
-#include "init.h"
-#include "camera_control.h"
-#include "sensor_control.h"
+#include "Service/Init/init.h"
+#include "Application/Camera/output/CameraControl.h"
+#include "Application/Camera/input/SensorControl.h"
 
 int main()
 {
     initialise_values();
+    CameraControl_init();
     
     while(true)
     {
-        sensorControl(isPictureTaken());
-        camera_control(returnSensorParameters());
+        SensorControl_Control();
+        CameraControl_Control();
     }
 }
