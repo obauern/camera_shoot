@@ -14,7 +14,7 @@ static PagesTypes_t nextPage;
    
 void Page1_execute(void)
 {
-    if (false == ILI9341_TouchPressed())
+    if (false == ILI9341Touch_isPressed())
     {
         nextPage = PAGES_NUMBER_2;
     }
