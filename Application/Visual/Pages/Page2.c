@@ -51,7 +51,7 @@ void Page2_showPage(void)
     buttonTest.height = 30;
     buttonTest.background = ILI9341_YELLOW;
     buttonTest.pressedBackground = ILI9341_RED;
-    buttonTest.label = "test";
+    buttonTest.label = "Picture";
     buttonTest.font = &Font_11x18;
     buttonTest.color = ILI9341_BLACK;
     buttonTest.callbackFunction = buttonTestFunction;

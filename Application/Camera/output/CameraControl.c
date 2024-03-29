@@ -103,7 +103,7 @@ static void handleManualCameraControl(void)
         isShootProcessRunning = true;
         if (true == cameraControl.triggerManualPicture)
         {
-            Timer0_setTimerCounter(4 * ONE_SECOND_TIMER_VALUE);
+            Timer0_setTimerCounter(8 * ONE_SECOND_TIMER_VALUE);
             cameraControl.triggerManualPicture = false;
         }
         Timer0_start();
@@ -209,11 +209,11 @@ static void timerDelayDueToNumberOfPicture(sensorParameters_t sensorParameters)
 {
     if(sensorParameters.isFirstPictureToBeTaken && sensorParameters.isInputTrigered)
     {
-        Timer0_setTimerCounter(4 * ONE_SECOND_TIMER_VALUE);
+        Timer0_setTimerCounter(8 * ONE_SECOND_TIMER_VALUE);
     }
     else if(sensorParameters.isInputTrigered)
     {
-        Timer0_setTimerCounter(ONE_SECOND_TIMER_VALUE);
+        Timer0_setTimerCounter(2*ONE_SECOND_TIMER_VALUE);
     }
 }
 
