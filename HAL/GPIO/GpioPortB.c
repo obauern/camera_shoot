@@ -26,7 +26,7 @@ static void initChipSelectAndTouchIrq(void);
 void GpioPortB_init(void)
 {
     SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R1;   /*gpio clock gate for port B*/
-    while (!(SYSCTL_RCGCGPIO_R & CLOCK_PORTB_AVAILABLE));
+    //while (!(SYSCTL_RCGCGPIO_R & CLOCK_PORTB_AVAILABLE));
     SYSCTL_GPIOHBCTL_R |= SYSCTL_GPIOHBCTL_PORTB; /*activates the ahb*/
     
     pb2T3CCP0Pb3Trigger();
@@ -77,14 +77,14 @@ static void initChipSelectAndTouchIrq(void)
 {
       SYSCTL_GPIOHBCTL_R |= SYSCTL_GPIOHBCTL_PORTB;
     // Configura pines para SSI0 (Puedes ajustar según tu necesidad)
-    GPIOB_HS->DIR = 0x00;
+
     GPIOB_HS->DIR |= PB0_OUTPUT;
     GPIOB_HS->DIR &= PB1_INPUT;  // PB0(output): Chip Select (Touch) PB1(input): Touch Irq
 
-    GPIOB_HS->DEN = 0x00;
+
     GPIOB_HS->DEN |= (TOUCH_CS_Pin | TOUCH_IRQ_Pin); /* PB0 y PB1 digital pins*/
     
-    GPIOB_HS->PUR = 0x00;
+
     GPIOB_HS->PUR |= (TOUCH_CS_Pin | TOUCH_IRQ_Pin); /* PULL-UP both pins */
 }
 
