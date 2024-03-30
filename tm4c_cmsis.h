@@ -1103,6 +1103,14 @@ typedef struct
 } WDT_Type;
 // </g>
 
+typedef struct
+{
+    __IO uint32_t STCTRL;
+    __IO uint32_t STLOAD;
+    __IO uint32_t STCURRENT;
+} SYSTICK_Type;
+// </g>
+
 /****************************************************************************/
 /*                              Memory map                                  */
 /****************************************************************************/
@@ -1161,6 +1169,8 @@ typedef struct
 #define FLASH_CTRL_BASE         0x400FD000  // FLASH Controller
 #define SYSCTL_BASE             0x400FE000  // System Control
 #define UDMA_BASE               0x400FF000  // uDMA Controller
+
+#define SYSTICK_BASE            0xE000E010
 
 /****************************************************************************/
 /*                            Peripheral declaration                        */
@@ -1229,5 +1239,7 @@ typedef struct
 #define USB0                ((USB_Type *)USB0_BASE)
 
 #define WDT                 ((WDT_Type *)WATCHDOG_BASE)
+
+#define SYSTICK             ((SYSTICK_Type *)SYSTICK_BASE)
 
 #endif  /* __TM4C_CMSIS_H__ */

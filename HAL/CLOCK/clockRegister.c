@@ -32,6 +32,12 @@
 
 #define NO_USER_RCC2 (~(1U << 31U))
 
+typedef struct clockControl_TAG
+{
+   uint32_t sysFrequency;
+}clockControl_t;
+
+static clockControl_t clockControl;
 
 static void systemClockTo66MHz(void);
 
@@ -67,4 +73,11 @@ static void systemClockTo66MHz(void)
     
     // Habilitar el oscilador principal mientras se realiza la configuración
     SYSCTL->RCC &= CLOCK_ENABLE;  // MOSCDIS
+    
+    clockControl.sysFrequency = 66000000U;
+}
+
+uint32_t ClockRegister_getSystemFrequency(void)
+{
+    return clockControl.sysFrequency;
 }
