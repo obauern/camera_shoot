@@ -11,6 +11,7 @@
 #include "HAL/GPIO/GpioPortA.h"
 #include "HAL/GPIO/GpioPortB.h"
 #include "HAL/GPIO/GpioPortF.h"
+#include "HAL/CLOCK/Systick.h"
 #include "HAL/TIMER/Timer0.h"
 #include "HAL/TIMER/Timer1.h"
 #include "HAL/TIMER/Timer2.h"
@@ -31,7 +32,9 @@ void initialise_registers(void)
     /*Timers for HCSr04*/
     Timer1_init();  /*Trigger*/    
     Timer2_init(); 
-    Timer3_init(); /*Echo measurements*/     
+    Timer3_init(); /*Echo measurements*/    
+    
+    SysTick_init();
     
     SensorControl_Init();
 }
