@@ -36,7 +36,3 @@ void SysTick_init(void)
 }
 
 
-void SysTick_Handler(void)
-{
-
-}
