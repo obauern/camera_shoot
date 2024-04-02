@@ -97,6 +97,7 @@ typedef struct
 
 int8_t ili9341Button_Add(TM_ILI9341_Button_t* button);
 ErrorStatus_t ili9341Button_Draw(uint8_t id);
+void ili9341Button_DrawButtonWithBackgroundPressed(uint8_t id);
 void ili9341Button_DrawAll(void);
 
 /**
