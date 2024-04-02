@@ -36,14 +36,22 @@ typedef struct
   uint8_t incTimeId;
   uint8_t decTimeId;
 }buttonTouchIds_t;
-
+   
+typedef struct
+{
+   uint8_t timerSetPoint;
+   uint8_t timerIsPoint;
+}displayIds_t;
+   
 typedef struct 
 {
     bool continuousTriggerEnabled;
     bool changeEnableDisableContinous;
     uint32_t setPointSeconds;
+    uint32_t isPointSeconds;
     uint32_t timer;
     buttonTouchIds_t buttonTouchIds; 
+    displayIds_t     displayIds;
 }page2Control_t;
 
 static page2Control_t page2Control;
@@ -58,7 +66,11 @@ static void disableButtonFunction(void);
 static void enableButtonFunction(void);
 static void buttonTestFunction(void);
 static void controlEnableDisable(void);
-static void initDisplay1(void);
+static uint8_t initTimerSetPointDisplay(void);
+static uint8_t initTimerIsPointDisplay(void);
+static void incTimeButtonFunction(void);
+static void decTimeButtonFunction(void);
+static void controlIsTimerDisplay(void);
    
 void Page2_execute(void)
 {
@@ -83,18 +95,28 @@ void Page2_execute(void)
     {
         if (Timebase_isTimeout(page2Control.timer))
         {
-            page2Control.timer = Timebase_getValue(TIMEOUT_2_MIN);
+            page2Control.timer = Timebase_getValue(page2Control.setPointSeconds*10);
             CameraControl_triggerManualPicture();
         }
-    }   
+    }
+    else
+    {
+        page2Control.timer = 0U;
+    }
+    
+    controlIsTimerDisplay();
 }
 
 void Page2_showPage(void)
 {
     memset(&page2Control.buttonTouchIds,0x00,sizeof(buttonTouchIds_t));
+    memset(&page2Control.displayIds,0x00,sizeof(displayIds_t));
     page2Control.continuousTriggerEnabled = false;
     page2Control.changeEnableDisableContinous = true;
     page2Control.timer = 0U;
+    page2Control.setPointSeconds = 30U;
+    page2Control.isPointSeconds = 0U;
+  
     ili9341Button_DeleteAll();
     
     
@@ -102,34 +124,24 @@ void Page2_showPage(void)
     page2Control.buttonTouchIds.sensorId = initSensorButton();
     page2Control.buttonTouchIds.disableId = initDisableButton();
     page2Control.buttonTouchIds.enableId = initEnableButton();
-      
-    
-    /*TM_ILI9341_Button_t buttonTest;
-    
-    buttonTest.x = 50;
-    buttonTest.y = 50;
-    buttonTest.width = 60;
-    buttonTest.height = 30;
-    buttonTest.background = ILI9341_YELLOW;
-    buttonTest.pressedBackground = ILI9341_RED;
-    buttonTest.label = "Picture";
-    buttonTest.font = &Font_11x18;
-    buttonTest.color = ILI9341_BLACK;
-    buttonTest.callbackFunction = buttonTestFunction;
-    
-    
-    
-    
-    buttonTestId = ili9341Button_Add(&buttonTest);*/
+    page2Control.buttonTouchIds.incTimeId = initIncTimeButton();
+    page2Control.buttonTouchIds.decTimeId = initDecTimeButton();
+
+    page2Control.displayIds.timerSetPoint = initTimerSetPointDisplay();
+    page2Control.displayIds.timerIsPoint = initTimerIsPointDisplay();
+
     
     ILI9341_FillScreen(ILI9341_BLACK);
-    
-    initDisplay1();
     
     ili9341Button_Draw(page2Control.buttonTouchIds.manualId);
     ili9341Button_Draw(page2Control.buttonTouchIds.sensorId);
     ili9341Button_Draw(page2Control.buttonTouchIds.disableId);
     ili9341Button_Draw(page2Control.buttonTouchIds.enableId);
+    ili9341Button_Draw(page2Control.buttonTouchIds.incTimeId);
+    ili9341Button_Draw(page2Control.buttonTouchIds.decTimeId);
+    
+    ili9341Display_Draw(page2Control.displayIds.timerSetPoint);
+    ili9341Display_Draw(page2Control.displayIds.timerIsPoint);
     //ili9341Button_Draw(buttonTestId);
     //ili9341Button_DrawAll();
 
@@ -216,8 +228,56 @@ static uint8_t initEnableButton(void)
     return ili9341Button_Add(&enableButton);
 }
 
-static uint8_t initIncTimeButton(void);
-static uint8_t initDecTimeButton(void);
+static uint8_t initIncTimeButton(void)
+{
+    TM_ILI9341_Button_t incTimeButton;
+    
+    incTimeButton.x = ILI9341_TOUCH_SCALE_X/2+5;
+    incTimeButton.y = 90;
+    incTimeButton.width = 25;
+    incTimeButton.height = 30;
+    incTimeButton.background = ILI9341_YELLOW;
+    incTimeButton.pressedBackground = ILI9341_RED;
+    incTimeButton.label = "->";
+    incTimeButton.font = &Font_11x18;
+    incTimeButton.color = ILI9341_BLACK;
+    incTimeButton.callbackFunction = incTimeButtonFunction;
+
+    return ili9341Button_Add(&incTimeButton);
+}
+
+static uint8_t initDecTimeButton(void)
+{
+    TM_ILI9341_Button_t decTimeButton;
+    
+    decTimeButton.x = 0;
+    decTimeButton.y = 90;
+    decTimeButton.width = 25;
+    decTimeButton.height = 30;
+    decTimeButton.background = ILI9341_YELLOW;
+    decTimeButton.pressedBackground = ILI9341_RED;
+    decTimeButton.label = "<-";
+    decTimeButton.font = &Font_11x18;
+    decTimeButton.color = ILI9341_BLACK;
+    decTimeButton.callbackFunction = decTimeButtonFunction;
+
+    return ili9341Button_Add(&decTimeButton);
+}
+
+static void incTimeButtonFunction(void)
+{
+    page2Control.setPointSeconds += 30;
+    ili9341Display_Draw(page2Control.displayIds.timerSetPoint);
+}
+
+static void decTimeButtonFunction(void)
+{
+    if(page2Control.setPointSeconds >= 60)
+    {
+        page2Control.setPointSeconds -= 30;
+    }
+    ili9341Display_Draw(page2Control.displayIds.timerSetPoint);
+}
 
 static void disableButtonFunction(void)
 {
@@ -240,21 +300,35 @@ static void buttonTestFunction(void)
     page2Control.continuousTriggerEnabled = true;
 }
 
-static void initDisplay1(void)
+static uint8_t initTimerSetPointDisplay(void)
 {
-    ILI9341_Display_t testDisplay;
+    ILI9341_Display_t timerSetPointDisplay;
     
-    testDisplay.x = 50;
-    testDisplay.y = 75;
-    testDisplay.width = 60;
-    testDisplay.height = 30;
-    testDisplay.background = ILI9341_YELLOW;
-    testDisplay.variable = &testVariable;
-    testDisplay.font = &Font_11x18;
-    testDisplay.color = ILI9341_BLACK;
+    timerSetPointDisplay.x = 50;
+    timerSetPointDisplay.y = 90;
+    timerSetPointDisplay.width = 60;
+    timerSetPointDisplay.height = 30;
+    timerSetPointDisplay.background = ILI9341_YELLOW;
+    timerSetPointDisplay.variable = &page2Control.setPointSeconds;
+    timerSetPointDisplay.font = &Font_11x18;
+    timerSetPointDisplay.color = ILI9341_BLACK;
     
-    numberDisplay = ili9341Display_Add(&testDisplay);
-    (void)ili9341Display_Draw(numberDisplay);
+    return ili9341Display_Add(&timerSetPointDisplay);
+}
+static uint8_t initTimerIsPointDisplay(void)
+{
+    ILI9341_Display_t timerIsPointDisplay;
+    
+    timerIsPointDisplay.x = 50;
+    timerIsPointDisplay.y = 125;
+    timerIsPointDisplay.width = 60;
+    timerIsPointDisplay.height = 30;
+    timerIsPointDisplay.background = ILI9341_YELLOW;
+    timerIsPointDisplay.variable = &page2Control.isPointSeconds;
+    timerIsPointDisplay.font = &Font_11x18;
+    timerIsPointDisplay.color = ILI9341_BLACK;
+    
+    return ili9341Display_Add(&timerIsPointDisplay);
 }
 
 static void controlEnableDisable(void)
@@ -272,5 +346,18 @@ static void controlEnableDisable(void)
             ili9341Button_DrawButtonWithBackgroundPressed(page2Control.buttonTouchIds.disableId);
             ili9341Button_Draw(page2Control.buttonTouchIds.enableId);
         }
+    }
+}
+
+static void controlIsTimerDisplay(void)
+{
+    uint32_t differenceTimer = Timebase_getDifference(page2Control.timer);
+    
+    differenceTimer /= 10;
+    
+    if (differenceTimer != page2Control.isPointSeconds)
+    {
+        page2Control.isPointSeconds = differenceTimer;
+        ili9341Display_Draw(page2Control.displayIds.timerIsPoint);
     }
 }
