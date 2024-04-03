@@ -57,6 +57,8 @@ typedef struct
 {
     bool continuousTriggerEnabled;
     bool changeEnableDisableContinous;
+    timer_t setPointTimer;
+    timer_t isPointTimer;
     uint32_t setPointSeconds;
     uint32_t isPointSeconds;
     uint32_t timer;
@@ -80,6 +82,7 @@ static uint8_t initTimerSetPointDisplay(void);
 static uint8_t initTimerIsPointDisplay(void);
 static void incTimeButtonFunction(void);
 static void decTimeButtonFunction(void);
+static void controlShootCamera(void);
 static void controlIsTimerDisplay(void);
 static uint32_t convertHoursMinutesSecondsToSeconds(timer_t timer);
 static void convertSecondsToHoursMinutesSeconds(uint32_t seconds, timer_t* timer);
@@ -103,19 +106,7 @@ void Page2_execute(void)
         controlEnableDisable();
     }
     
-    if (true == page2Control.continuousTriggerEnabled)
-    {
-        if (Timebase_isTimeout(page2Control.timer))
-        {
-            page2Control.timer = Timebase_getValue(page2Control.setPointSeconds*10);
-            CameraControl_triggerManualPicture();
-        }
-    }
-    else
-    {
-        page2Control.timer = 0U;
-    }
-    
+    controlShootCamera();
     controlIsTimerDisplay();
 }
 
@@ -361,6 +352,25 @@ static void controlEnableDisable(void)
     }
 }
 
+static void controlShootCamera(void)
+{
+    uint32_t setPointSeconds = 0U;
+    if (true == page2Control.continuousTriggerEnabled)
+    {
+        if (Timebase_isTimeout(page2Control.timer))
+        {
+            setPointSeconds = convertHoursMinutesSecondsToSeconds(page2Control.setPointTimer);
+            /*TODO: after that the field for the timer is available, the one will be in the parameter as timebase_getValue*/
+            page2Control.timer = Timebase_getValue(page2Control.setPointSeconds*10);
+            CameraControl_triggerManualPicture();
+        }
+    }
+    else
+    {
+        page2Control.timer = 0U;
+    }
+}
+
 static void controlIsTimerDisplay(void)
 {
     uint32_t differenceTimer = Timebase_getDifference(page2Control.timer);
@@ -371,6 +381,9 @@ static void controlIsTimerDisplay(void)
     {
         page2Control.isPointSeconds = differenceTimer;
         ili9341Display_Draw(page2Control.displayIds.timerIsPoint);
+        
+        convertSecondsToHoursMinutesSeconds(differenceTimer,&page2Control.isPointTimer);
+        /*TODO: to draw the fields for the is point timer*/
     }
 }
 
