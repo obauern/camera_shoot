@@ -19,8 +19,11 @@
 
 
 #define  ONE_SECOND_TIMER (10U)
-#define  TIMEOUT_30_SEC    (ONE_SECOND_TIMER*30U)
-#define  TIMEOUT_2_MIN    (ONE_SECOND_TIMER*60U*2)
+
+#define SECONDS_IN_MINUTE (60U)
+#define SECONDS_IN_HOUR   (3600U)
+   
+   
    
 static PagesTypes_t nextPage;
 static uint8_t buttonTestId = 0;
@@ -42,6 +45,13 @@ typedef struct
    uint8_t timerSetPoint;
    uint8_t timerIsPoint;
 }displayIds_t;
+
+typedef struct
+{
+    uint8_t seconds;
+    uint8_t minutes;
+    uint8_t hours;
+}timer_t;
    
 typedef struct 
 {
@@ -71,6 +81,8 @@ static uint8_t initTimerIsPointDisplay(void);
 static void incTimeButtonFunction(void);
 static void decTimeButtonFunction(void);
 static void controlIsTimerDisplay(void);
+static uint32_t convertHoursMinutesSecondsToSeconds(timer_t timer);
+static void convertSecondsToHoursMinutesSeconds(uint32_t seconds, timer_t* timer);
    
 void Page2_execute(void)
 {
@@ -360,4 +372,30 @@ static void controlIsTimerDisplay(void)
         page2Control.isPointSeconds = differenceTimer;
         ili9341Display_Draw(page2Control.displayIds.timerIsPoint);
     }
+}
+
+static uint32_t convertHoursMinutesSecondsToSeconds(timer_t timer)
+{
+    uint32_t seconds = 0U;
+    
+    seconds = timer.seconds;
+    seconds += SECONDS_IN_MINUTE*timer.minutes;
+    seconds += SECONDS_IN_HOUR*timer.hours;
+    
+    return seconds;
+}
+
+static void convertSecondsToHoursMinutesSeconds(uint32_t seconds, timer_t* timer)
+{
+    timer->hours = seconds / SECONDS_IN_HOUR;
+    while (seconds >= SECONDS_IN_HOUR)
+    {
+        seconds -= SECONDS_IN_HOUR;
+    }
+    timer->minutes = seconds / SECONDS_IN_MINUTE;
+    while (seconds >= SECONDS_IN_MINUTE)
+    {
+        seconds -= SECONDS_IN_MINUTE;
+    }
+    timer->seconds = seconds;
 }
