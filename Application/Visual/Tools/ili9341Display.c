@@ -83,7 +83,7 @@ DispErrorStatus_t ili9341Display_Draw(uint8_t id)
                 intToString(*ILI9341_Displays[id].variable,strVariable);
 		fontWidth = ILI9341_Displays[id].font->width;
                 fontHeight = ILI9341_Displays[id].font->height;
-		x = ILI9341_Displays[id].x + ILI9341_Displays[id].width / 2 - (fontWidth*2);
+		x = ILI9341_Displays[id].x + 2;
 		y = ILI9341_Displays[id].y + ILI9341_Displays[id].height / 2 - (fontHeight / 2);
 		ILI9341_WriteString(x, y, strVariable, *ILI9341_Displays[id].font, ILI9341_Displays[id].color, ILI9341_Displays[id].background);
 	}
