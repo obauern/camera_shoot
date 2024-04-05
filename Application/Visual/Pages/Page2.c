@@ -155,6 +155,7 @@ static void showPage(void)
 {
     
     ili9341Button_DeleteAll();
+    ili9341Display_DeleteAll();
     
     
     page2Control.buttonTouchIds.manualId = initManualButton();
@@ -183,6 +184,7 @@ static void showPage(void)
     ili9341Button_Draw(page2Control.buttonTouchIds.incMinuteId);
     ili9341Button_Draw(page2Control.buttonTouchIds.decHourId);
     ili9341Button_Draw(page2Control.buttonTouchIds.decMinuteId);   
+    
     ili9341Display_Draw(page2Control.displayIds.timerHourSetPoint);
     ili9341Display_Draw(page2Control.displayIds.timerMinuteSetPoint);
     ili9341Display_Draw(page2Control.displayIds.timerHourIsPoint);
