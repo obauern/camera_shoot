@@ -10,5 +10,6 @@
 
 void HandlePages_init(void);
 void HandlePages_execute(void);
+void HandlePages_reset(void);
 
 #endif /* HANDLE_PAGES_H_ */

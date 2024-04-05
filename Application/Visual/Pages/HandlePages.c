@@ -6,30 +6,44 @@
  */
 #include "Application/Visual/Pages/HandlePages.h"
 
+#include <stdbool.h>
+
 #include "Application/Visual/Pages/PagesTypes.h"
 #include "Application/Visual/Pages/Page1.h"
 #include "Application/Visual/Pages/Page2.h"
 
+typedef struct
+{
+    PagesTypes_t actualPage;
+}handlePagesControl_t;
+
 static PagesTypes_t pagesStatus(PagesTypes_t page);
 static void showPage(PagesTypes_t page);
 static void pageExecute(PagesTypes_t page);
+static void pageReShow(PagesTypes_t page);
+
+static handlePagesControl_t handlePagesControl;
 
 void HandlePages_init(void)
 {
+    handlePagesControl.actualPage = PAGES_NUMBER_1;
     Page1_showPage();
 }
 
 void HandlePages_execute(void)
 {
-    static PagesTypes_t actualPage = PAGES_NUMBER_1;
-
-    PagesTypes_t newPage = pagesStatus(actualPage);
-    if (actualPage != newPage)
+    PagesTypes_t newPage = pagesStatus(handlePagesControl.actualPage);
+    if (handlePagesControl.actualPage != newPage)
     {
-        actualPage = newPage;
-        showPage(actualPage);
+        handlePagesControl.actualPage = newPage;
+        showPage(handlePagesControl.actualPage);
     }
-    pageExecute(actualPage);
+    pageExecute(handlePagesControl.actualPage);
+}
+
+void HandlePages_reset(void)
+{
+    pageReShow(handlePagesControl.actualPage);
 }
 
 /*******************************************
@@ -86,3 +100,18 @@ static void pageExecute(PagesTypes_t page)
     }
 }
 
+static void pageReShow(PagesTypes_t page)
+{
+    switch(page)
+    {
+    case PAGES_NUMBER_1:
+        //Page1_reShow();
+        break;
+    case PAGES_NUMBER_2:
+        Page2_reShow();
+        break;
+    default:
+      //assert(false);
+      break;
+    }
+}
