@@ -12,6 +12,7 @@
 
 void Page2_execute(void);
 void Page2_showPage(void);
+void Page2_reShow(void);
 PagesTypes_t Page2_nextPage(void);
 
 #endif /* PAGE2_H_ */

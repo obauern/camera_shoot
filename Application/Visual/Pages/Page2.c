@@ -74,6 +74,7 @@ typedef struct
 
 static page2Control_t page2Control;
 
+static void showPage(void);
 static uint8_t initManualButton(void);
 static uint8_t initSensorButton(void);
 static uint8_t initEnableButton(void);
@@ -132,7 +133,27 @@ void Page2_showPage(void)
     page2Control.setPointSeconds = 30U;
     page2Control.isPointSeconds = 0U;
     page2Control.setPointTimer.minutes = 1U;
-  
+    
+    showPage();
+       
+    nextPage = PAGES_NUMBER_2;
+}
+
+void Page2_reShow(void)
+{
+    showPage();
+}
+
+PagesTypes_t Page2_nextPage(void)
+{
+    return nextPage;
+}
+
+/*------INTERNAL VARIABLES------------*/
+
+static void showPage(void)
+{
+    
     ili9341Button_DeleteAll();
     
     
@@ -167,16 +188,7 @@ void Page2_showPage(void)
     ili9341Display_Draw(page2Control.displayIds.timerHourIsPoint);
     ili9341Display_Draw(page2Control.displayIds.timerMinuteIsPoint);
     ili9341Display_Draw(page2Control.displayIds.timerSecondIsPoint);
-        
-    nextPage = PAGES_NUMBER_2;
 }
-
-PagesTypes_t Page2_nextPage(void)
-{
-    return nextPage;
-}
-
-/*------INTERNAL VARIABLES------------*/
 
 static uint8_t initManualButton(void)
 {
