@@ -214,6 +214,19 @@ void ILI9341_Init() {
     ILI9341_Unselect();
 }
 
+uint8_t ILI9341_ReadPowerMode(void)
+{
+    uint8_t retVal1 = 0U;
+
+    ILI9341_Select();
+    ILI9341_WriteCommand(CMD_READ_DISPLAY_PWR_MODE);
+    retVal1 = HalSpi_write(0x00);
+    
+    ILI9341_Unselect();
+    
+    return retVal1;
+}
+
 void ILI9341_DrawPixel(uint16_t x, uint16_t y, uint16_t color) 
 {
     if((x >= ILI9341_WIDTH) || (y >= ILI9341_HEIGHT))

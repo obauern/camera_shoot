@@ -28,6 +28,7 @@
 #define ILI9341_WHITE   0xFFFF
 
 void ILI9341_Init();
+uint8_t ILI9341_ReadPowerMode(void);
 
 void ILI9341_FillScreen(uint16_t color);
 void ILI9341_DrawPixel(uint16_t x, uint16_t y, uint16_t color);

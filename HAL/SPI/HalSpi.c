@@ -41,7 +41,7 @@
 #define SSI0_8BITS (7U)
 #define SSI0_SPI (~(3U << 4U))
 
-#define CPSDVSR_SCREEN (2U)
+#define CPSDVSR_SCREEN (6)//(2U)
 #define CPSDVSR_TOUCH (67U)
 
 #define CLOCK_POLARITY_HIGH (1U<<6U)
