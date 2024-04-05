@@ -4,6 +4,7 @@
 
 #include "Application/Camera/output/CameraControl.h"
 #include "Application/Camera/input/SensorControl.h"
+#include "Application/Visual/Tools/ili9341Security.h"
 #include "Application/Visual/Pages/HandlePages.h"
 #include "Service/Timebase/Timebase.h"
 #include "Service/TouchPanel/Panel/ili9341.h"
@@ -18,6 +19,8 @@ int main()
     Timebase_init();
     ILI9341Touch_init();
     ILI9341_Init();
+    ili9341Security_init();
+    
     CameraControl_init();
     HandlePages_init(); 
    
@@ -27,5 +30,7 @@ int main()
         HandlePages_execute();
         SensorControl_Control();
         CameraControl_Control();
+        
+        ili9341Security_controlPowerMode();
     }
 }
