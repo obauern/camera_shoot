@@ -4,6 +4,7 @@
 #include "Service/TouchPanel/Panel/ili9341.h"
 
 static bool isTouchDataInsideButton(TouchData_t* touchData, uint8_t id);
+static void displayLabel(uint8_t id, uint16_t bkgrColor);
 static void drawButtonWithBkgPressed(uint8_t id);
 
 TM_ILI9341_Button_t TM_ILI9341_Buttons[TM_ILI9341_BUTTON_MAX_BUTTONS];
@@ -89,12 +90,7 @@ ErrorStatus_t ili9341Button_Draw(uint8_t id)
 	//Display label
 	if ((TM_ILI9341_Buttons[id].flags & TM_BUTTON_FLAG_NOLABEL) == 0) 
         {
-		//TM_ILI9341_GetStringSize(TM_ILI9341_Buttons[id].label, TM_ILI9341_Buttons[id].font, &fontWidth, &fontHeight);
-                fontWidth = TM_ILI9341_Buttons[id].font->width;
-                fontHeight = TM_ILI9341_Buttons[id].font->height;
-		x = TM_ILI9341_Buttons[id].x + TM_ILI9341_Buttons[id].width / 2 - (fontWidth*2);
-		y = TM_ILI9341_Buttons[id].y + TM_ILI9341_Buttons[id].height / 2 - (fontHeight / 2);
-		ILI9341_WriteString(x, y, TM_ILI9341_Buttons[id].label, *TM_ILI9341_Buttons[id].font, TM_ILI9341_Buttons[id].color, TM_ILI9341_Buttons[id].background);
+                displayLabel(id, TM_ILI9341_Buttons[id].background);
 	}
 	
 	//Border
@@ -109,6 +105,11 @@ ErrorStatus_t ili9341Button_Draw(uint8_t id)
 	}
 	
 	return SUCCESS;
+}
+        
+void ili9341Button_DrawButtonWithBackgroundPressed(uint8_t id)
+{
+    drawButtonWithBkgPressed(id);
 }
 
 int8_t ili9341Button_Touch(TouchData_t* touchData) 
@@ -207,12 +208,9 @@ static void drawButtonWithBkgPressed(uint8_t id)
     //Display label
     if ((TM_ILI9341_Buttons[id].flags & TM_BUTTON_FLAG_NOLABEL) == 0) 
     {
+            displayLabel(id,TM_ILI9341_Buttons[id].pressedBackground);
             //TM_ILI9341_GetStringSize(TM_ILI9341_Buttons[id].label, TM_ILI9341_Buttons[id].font, &fontWidth, &fontHeight);
-            fontWidth = TM_ILI9341_Buttons[id].font->width;
-            fontHeight = TM_ILI9341_Buttons[id].font->height;
-            x = TM_ILI9341_Buttons[id].x + TM_ILI9341_Buttons[id].width / 2 - (fontWidth*2);
-            y = TM_ILI9341_Buttons[id].y + TM_ILI9341_Buttons[id].height / 2 - (fontHeight / 2);
-            ILI9341_WriteString(x, y, TM_ILI9341_Buttons[id].label, *TM_ILI9341_Buttons[id].font, TM_ILI9341_Buttons[id].color, TM_ILI9341_Buttons[id].pressedBackground);
+            
     }
     
     //Border
@@ -225,5 +223,17 @@ static void drawButtonWithBkgPressed(uint8_t id)
                               TM_ILI9341_Buttons[id].height,
                               TM_ILI9341_Buttons[id].borderColor );
     }
+}
+
+static void displayLabel(uint8_t id, uint16_t bkgrColor)
+{
+    uint16_t fontWidth, fontHeight, x, y;
+    
+    fontWidth = TM_ILI9341_Buttons[id].font->width;
+    fontHeight = TM_ILI9341_Buttons[id].font->height;
+    //x = TM_ILI9341_Buttons[id].x + TM_ILI9341_Buttons[id].width / 2 - (fontWidth*2);
+    x = TM_ILI9341_Buttons[id].x + 2;
+    y = TM_ILI9341_Buttons[id].y + TM_ILI9341_Buttons[id].height / 2 - (fontHeight / 2);
+    ILI9341_WriteString(x, y, TM_ILI9341_Buttons[id].label, *TM_ILI9341_Buttons[id].font, TM_ILI9341_Buttons[id].color, bkgrColor);
 }
 

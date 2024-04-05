@@ -19,6 +19,17 @@ uint32_t Timebase_getValue(uint32_t offset100ms)
     return (timebaseControl.time100ms + offset100ms);
 }
 
+uint32_t Timebase_getDifference(uint32_t timeOut100ms)
+{
+    uint32_t retValue = 0U;
+    if (timeOut100ms > timebaseControl.time100ms)
+    {
+        retValue = timeOut100ms - timebaseControl.time100ms;
+    }
+    
+    return retValue;
+}
+
 bool Timebase_isTimeout(uint32_t timeOut100ms)
 {
     bool retVal = false;
