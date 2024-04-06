@@ -90,11 +90,12 @@ static uint8_t initMinuteIsPointDisplay(void);
 static uint8_t initSecondIsPointDisplay(void);
 static void disableButtonFunction(void);
 static void enableButtonFunction(void);
-static void controlEnableDisable(void);
 static void incHourButtonFunction(void);
 static void decHourButtonFunction(void);
 static void incMinuteButtonFunction(void);
 static void decMinuteButtonFunction(void);
+
+static void controlEnableDisable(void);
 static void controlShootCamera(void);
 static void controlIsTimerDisplay(void);
 static uint32_t convertHoursMinutesSecondsToSeconds(timer_t timer);
@@ -162,6 +163,7 @@ static void showPage(void)
     page2Control.buttonTouchIds.sensorId = initSensorButton();
     page2Control.buttonTouchIds.disableId = initDisableButton();
     page2Control.buttonTouchIds.enableId = initEnableButton();
+    
     page2Control.buttonTouchIds.incHourId = initIncHourIdButton();
     page2Control.buttonTouchIds.decHourId = initDecHourIdButton();
     page2Control.buttonTouchIds.incMinuteId = initIncMinuteIdButton();
@@ -176,10 +178,11 @@ static void showPage(void)
     
     ILI9341_FillScreen(ILI9341_BLACK);
     
+    page2Control.changeEnableDisableContinous = true;
+    controlEnableDisable();
+    
     ili9341Button_Draw(page2Control.buttonTouchIds.manualId);
     ili9341Button_Draw(page2Control.buttonTouchIds.sensorId);
-    ili9341Button_Draw(page2Control.buttonTouchIds.disableId);
-    ili9341Button_Draw(page2Control.buttonTouchIds.enableId);
     ili9341Button_Draw(page2Control.buttonTouchIds.incHourId);
     ili9341Button_Draw(page2Control.buttonTouchIds.incMinuteId);
     ili9341Button_Draw(page2Control.buttonTouchIds.decHourId);
@@ -518,11 +521,19 @@ static void controlEnableDisable(void)
         {
             ili9341Button_DrawButtonWithBackgroundPressed(page2Control.buttonTouchIds.enableId);
             ili9341Button_Draw(page2Control.buttonTouchIds.disableId);
+            ili9341Button_Disable(page2Control.buttonTouchIds.incHourId);
+            ili9341Button_Disable(page2Control.buttonTouchIds.decHourId);
+            ili9341Button_Disable(page2Control.buttonTouchIds.incMinuteId);
+            ili9341Button_Disable(page2Control.buttonTouchIds.decMinuteId);
         }
         else
         {
             ili9341Button_DrawButtonWithBackgroundPressed(page2Control.buttonTouchIds.disableId);
             ili9341Button_Draw(page2Control.buttonTouchIds.enableId);
+            ili9341Button_Enable(page2Control.buttonTouchIds.incHourId);
+            ili9341Button_Enable(page2Control.buttonTouchIds.decHourId);
+            ili9341Button_Enable(page2Control.buttonTouchIds.incMinuteId);
+            ili9341Button_Enable(page2Control.buttonTouchIds.decMinuteId);
         }
     }
 }
